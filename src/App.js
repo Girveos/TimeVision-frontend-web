@@ -1,12 +1,19 @@
+import React from 'react';
 import './App.css';
-/* import Home from './components/screens/home/Home';
-import Login from './components/screens/login/Login' */
-import MainLayout from './layouts/MainLayout';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/screens/home/Home.js';
+import Login from './components/screens/login/Login.js'
 
 function App() {
   return (
-    <MainLayout />
+    <Router>
+      <div className="app-container">
+        <Routes>
+          <Route path="/" element={<Login/>} />
+          <Route path="/home" element={<Home/>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
