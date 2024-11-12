@@ -12,7 +12,7 @@ export default function Login() {
       <div className='LoginCard'>
         <div className='LoginContent'>
           <h1>¡Bienvenido a TimeVision!</h1>
-          <img src={require("../../assets/LogoGrey.png")} />
+          <img src={require("../../../assets/LogoGrey.png")} />
           <h2>Inicia sesión para acceder a TimeVision</h2>
         </div>
         <div className='LoginInputs'>

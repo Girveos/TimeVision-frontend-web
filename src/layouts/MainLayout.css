@@ -1,0 +1,13 @@
+.main-layout {
+    width: 100%;
+    height: 100vh;
+}
+
+.siderbar-content{
+    width: 210px;
+}
+
+.content{
+    width: 100%;
+    padding: 20px;
+}
