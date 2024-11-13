@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Input, Button } from "antd";
 import "./Login.css";
 import { useNavigate } from 'react-router-dom';
-
 import { login } from '../../../config/routes';
 
 function Login() {
@@ -51,7 +50,7 @@ function Login() {
         <div className='LoginPasswordRecover'>
           <span>
             ¿Olvidaste tu contraseña? {" "}
-            <a href="#" onClick={handleForgotPassword} style={{ color: '#8696BB', cursor: 'pointer' }}>
+            <a href="/" onClick={handleForgotPassword} style={{ color: '#8696BB', cursor: 'pointer' }}>
                Haz clic aquí
             </a>
           </span>

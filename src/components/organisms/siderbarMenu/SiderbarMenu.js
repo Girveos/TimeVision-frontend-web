@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./SiderbarMenu.css";
 import Logo from '../../../assets/LogoGrey.png';
 import { CalendarOutlined, LineChartOutlined, MessageOutlined, ScheduleOutlined, SettingOutlined, SolutionOutlined, TeamOutlined } from "@ant-design/icons";
@@ -13,25 +14,39 @@ export const SiderbarMenu = () => {
       <nav className="sidebar-nav">
         <ul>
           <li>
-            <a href="/home"> <LineChartOutlined /> Panel principal</a>
+            <NavLink to="/home" className={({ isActive }) => isActive ? "active-link" : ""}>
+              <LineChartOutlined /> Panel principal
+            </NavLink>
           </li>
           <li>
-            <a href="/about"><ScheduleOutlined /> Turnos</a>
+            <NavLink to="/shifts" className={({ isActive }) => isActive ? "active-link" : ""}>
+              <ScheduleOutlined /> Turnos
+            </NavLink>
           </li>
           <li>
-            <a href="/services"><MessageOutlined /> Solicitudes</a>
+            <NavLink to="/requests" className={({ isActive }) => isActive ? "active-link" : ""}>
+              <MessageOutlined /> Solicitudes
+            </NavLink>
           </li>
           <li>
-            <a href="/contact"><CalendarOutlined /> Calendario</a>
+            <NavLink to="/calendar" className={({ isActive }) => isActive ? "active-link" : ""}>
+              <CalendarOutlined /> Calendario
+            </NavLink>
           </li>
           <li>
-            <a href="/home"><SolutionOutlined /> Licencias</a>
+            <NavLink to="/licenses" className={({ isActive }) => isActive ? "active-link" : ""}>
+              <SolutionOutlined /> Licencias
+            </NavLink>
           </li>
           <li>
-            <a href="/about"><TeamOutlined /> Personal</a>
+            <NavLink to="/employees" className={({ isActive }) => isActive ? "active-link" : ""}>
+              <TeamOutlined /> Personal
+            </NavLink>
           </li>
           <li>
-            <a href="/services"><SettingOutlined /> Configuración</a>
+            <NavLink to="/settings" className={({ isActive }) => isActive ? "active-link" : ""}>
+              <SettingOutlined /> Configuración
+            </NavLink>
           </li>
         </ul>
       </nav>

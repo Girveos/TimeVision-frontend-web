@@ -53,9 +53,9 @@
   .sidebar-nav li {
     margin: 0.5vh 0;
   }
-  
+
   .sidebar-nav a {
-    color: #C7C7C7;
+    color: #959292;
     text-decoration: none;
     font-size: 0.95rem;
     display: flex;
@@ -64,10 +64,17 @@
     height: 30px;
     width: 150px;
   }
+
+  .sidebar-nav a.active-link {
+    background-color: #E4F0FF;
+    color: #197BBD;
+    border-radius: 5px;
+  }
   
   .sidebar-nav a:hover {
     background-color: #E4F0FF;
     color: #197BBD;
     border-radius: 5px;
   }
+
   
