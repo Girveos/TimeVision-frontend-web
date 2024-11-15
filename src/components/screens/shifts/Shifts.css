@@ -1,17 +1,13 @@
 .container {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   max-width: 1000px;
-  margin-left: 200px;
-  
 }
-
 
 .Title-Seccion {
   font-size: 20px;
   padding: 20px 10px;
-  margin: 5px 5px
+  margin: 5px 5px;
 }
-
 
 .title {
   font-size: 40px;
@@ -52,7 +48,6 @@
 .range-date {
   text-align: center;
   padding: 11px 10px;
-  
 }
 
 .range-options {
@@ -68,34 +63,30 @@
   padding: 5px 10px;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
-  
 }
 
 .range-options .active {
-  background-color: #3391D0;
+  background-color: #3391d0;
   color: #fff;
 }
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; 
+  gap: 10px;
 }
-
 
 .checkbox-group label {
   display: block;
   margin-bottom: 8px;
   color: black;
   font-size: 16.75px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   width: calc(50% - 0.5rem);
 }
-
 
 .user-selection h2 {
   font-size: 20px;
   color: black;
-  
 }
 
 .table {
@@ -111,16 +102,15 @@ thead {
   background-color: #f3f4f6;
   color: black;
   font-size: 16.75px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
-
-td, th {
+td,
+th {
   padding: 10px;
   text-align: left;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 16.75px;
-  
 }
 
 tbody tr {
@@ -145,35 +135,34 @@ tbody tr td:first-child {
 }
 
 .user-selection::-webkit-scrollbar {
-  width: 12px; 
+  width: 12px;
 }
 
 .user-selection::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-  border-radius: 20px; 
+  background: #f1f1f1;
+  border-radius: 20px;
 }
 
 .user-selection::-webkit-scrollbar-thumb {
-  background-color: #b0b0b0; 
-  border-radius: 20px; 
-  border: 2px solid #f1f1f1; 
+  background-color: #b0b0b0;
+  border-radius: 20px;
+  border: 2px solid #f1f1f1;
 }
 
 .user-selection::-webkit-scrollbar-thumb:hover {
-  background-color: #909090; 
+  background-color: #909090;
 }
 .assign-button-container {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  
+  justify-content: center;
+  align-items: center;
 }
 .assign-button {
   margin-top: 5px;
   padding: 10px 10px;
   font-size: 16px;
   color: white;
-  background-color: #3391D0;
+  background-color: #3391d0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -181,10 +170,9 @@ tbody tr td:first-child {
 }
 
 .assign-button:disabled {
-  background-color: #ccc; 
-  cursor: not-allowed; 
+  background-color: #ccc;
+  cursor: not-allowed;
 }
-
 
 @media (max-width: 600px) {
   .title {
@@ -206,7 +194,12 @@ tbody tr td:first-child {
     font-size: 0.9rem;
   }
 
-  table, thead, tbody, th, td, tr {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     font-size: 12px;
   }
 }

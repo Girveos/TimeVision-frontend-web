@@ -1,0 +1,30 @@
+.week-view {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .days-header .day {
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+  
+  .hours-content .hour-row {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1px;
+  }
+  
+  .hours-content .hour-row div {
+    padding: 10px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .hours-content .hour-row div:nth-child(1) {
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }

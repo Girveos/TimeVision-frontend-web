@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Input, Button } from "antd";
 import "./Login.css";
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../../config/routes';
 
-function Login() {
+function Login({ onLoginSuccess }) {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -16,6 +16,7 @@ function Login() {
   const onClick = async () => { 
     try {
       await login(email, password);  
+      onLoginSuccess();
       navigate("/home");   
     } catch (error) {
       alert('Error al iniciar sesión'); 
