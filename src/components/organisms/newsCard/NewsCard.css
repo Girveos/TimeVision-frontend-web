@@ -1,0 +1,31 @@
+.cardNews {
+    background: linear-gradient(135deg, #5ba5f5, #3893e5);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    position: relative;
+    margin:2vh;
+  }
+  
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  
+  .cardHeader h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .cardHeader span {
+    font-size: 12px;
+  }
+  
+  .cardNews p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+  }
+  
