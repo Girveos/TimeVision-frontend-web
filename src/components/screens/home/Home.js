@@ -3,9 +3,9 @@ import "./Home.css";
 import NewsCard from "../../organisms/newsCard/NewsCard";
 import NotificationCard from "../../organisms/notificationCard/NotificationCard";
 import StatisticsCard from "../../organisms/statisticsCard/StatisticsCard";
-import personalEnTurnoIcon from '../../../assets/personalEnTurno.png';
-import personalEnLicenciaIcon from '../../../assets/personalEnLicencia.png';
-import personalDisponiblecon from '../../../assets/personalDisponible.png';
+import personalEnTurnoIcon from '../../../assets/personalEnTurno1.png';
+import personalEnLicenciaIcon from '../../../assets/personalEnLicencia1.png';
+import personalDisponiblecon from '../../../assets/personalDisponible1.png';
 
 const Home = () => {
   return (
