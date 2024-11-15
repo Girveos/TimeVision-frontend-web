@@ -1,7 +1,7 @@
 import { Input, Button } from "antd";
 import "./ChangePassword.css";
 
-export default function ChangePassword() {
+const ChangePassword = () => {
   return (
     <div className="ChangePasswordScreen">
       <div className="LoginCard">
@@ -30,3 +30,5 @@ export default function ChangePassword() {
     </div>
   );
 }
+
+export default ChangePassword;

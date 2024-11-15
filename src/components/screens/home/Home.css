@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.HomeScreen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    flex-direction: column;
+
+}
+
+.header{
+    display: flex;
+    width: 95%;
+    margin-top: 5vh;
+    margin-left: 2vh;
+}
+
+.titleNews{
+    display: flex;
+    align-self: flex-end;
+    margin-right: 2vh;
+}
+
+.bodyContent{
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+}
+
+.newsNotification{
+    display: flex;
+    flex-direction: column;
+    margin: 2vh;
+}
+
+.notificationsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.staticsNotification{
+    margin: 2vh;
+    width: 100%;
+}

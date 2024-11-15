@@ -1,11 +1,9 @@
 import './App.css';
-/* import Login from './components/login/Login' */
-import ChangePassword from './components/screens/changePassword/ChangePassword'
-
+import Home from '../src/components/screens/home/Home'
 
 function App() {
   return (
-    <ChangePassword/>
+    <Home/>
   );
 }
 
