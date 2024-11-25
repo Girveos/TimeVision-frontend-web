@@ -1,0 +1,14 @@
+.calendarScreen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.body-calendar {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}

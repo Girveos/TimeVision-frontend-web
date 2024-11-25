@@ -6,8 +6,8 @@
     text-align: center;
     font-family: Arial, sans-serif;
     color: #333;
-    margin: 0.5vh;
-    inline-size: max-content;
+    width: 80px; 
+    flex-shrink: 0;
   }
   
   .notificationCard h3 {

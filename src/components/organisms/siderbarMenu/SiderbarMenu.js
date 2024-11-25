@@ -1,8 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./SiderbarMenu.css";
-import Logo from '../../../assets/LogoGrey.png';
-import { CalendarOutlined, LineChartOutlined, MessageOutlined, ScheduleOutlined, SettingOutlined, SolutionOutlined, TeamOutlined } from "@ant-design/icons";
+import Logo from "../../../assets/LogoGrey.png";
+import {
+  CalendarOutlined,
+  LineChartOutlined,
+  MessageOutlined,
+  ScheduleOutlined,
+  SettingOutlined,
+  SolutionOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 export const SiderbarMenu = () => {
   return (
@@ -14,37 +23,66 @@ export const SiderbarMenu = () => {
       <nav className="sidebar-nav">
         <ul>
           <li>
-            <NavLink to="/home" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink
+              to="/home"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <LineChartOutlined /> Panel principal
             </NavLink>
           </li>
           <li>
-            <NavLink to="/shifts" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink
+              to="/shifts"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <ScheduleOutlined /> Turnos
             </NavLink>
           </li>
           <li>
-            <NavLink to="/requests" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink
+              to="/requests"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <MessageOutlined /> Solicitudes
             </NavLink>
           </li>
           <li>
-            <NavLink to="/calendar" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink
+              to="/calendar"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <CalendarOutlined /> Calendario
             </NavLink>
           </li>
           <li>
-            <NavLink to="/licenses" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink
+              to="/licenses"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <SolutionOutlined /> Licencias
             </NavLink>
           </li>
           <li>
-            <NavLink to="/employees" className={({ isActive }) => isActive ? "active-link" : ""}>
-              <TeamOutlined /> Personal
+            <NavLink
+              to="/employees"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              <TeamOutlined /> Empleados
             </NavLink>
           </li>
           <li>
-            <NavLink to="/settings" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              <UserOutlined /> Perfil
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/settings"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <SettingOutlined /> Configuración
             </NavLink>
           </li>

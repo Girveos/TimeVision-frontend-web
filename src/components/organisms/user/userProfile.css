@@ -1,0 +1,45 @@
+.user-profile {
+  display: flex;
+  flex-direction: row;
+  margin: 3vh 0;
+  align-items: center;
+}
+
+.profile-img{
+  display: flex;
+}
+
+.profile-img .img-photo{
+  width: 5vh;
+  height: 5vh;
+  border-radius: 100%;
+  background-color: antiquewhite;
+  margin-right: 15px;
+}
+
+p {
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-name {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 21px;
+  color: #404040;
+}
+
+.user-role {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 21px;
+  color: #aeaeae;
+}

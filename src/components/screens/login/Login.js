@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, Button } from "antd";
 import "./Login.css";
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../../config/routes';
+import { jwtDecode } from 'jwt-decode';
 
 function Login({ onLoginSuccess }) {
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleForgotPassword = () => {
    
   };
 
-  const onClick = async () => { 
+  const onClick = async () => {
     try {
       await login(email, password);  
-      onLoginSuccess();
-      navigate("/home");   
+      const token = await localStorage.getItem("token");
+
+      if (token) {
+        onLoginSuccess();
+        navigate("/home");
+      } else {
+        alert("No tienes permisos para acceder.");
+        localStorage.removeItem("token");
+      }
     } catch (error) {
-      alert('Error al iniciar sesión'); 
+      console.log("AQUI ESTA EL ERROR", error)
+      alert("Error al iniciar sesión");
     }
   };
 
