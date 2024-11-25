@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Request.css";
-import Table from '../../organisms/table/Table';
-import SearchBar from '../../organisms/searchBar/SearchBar';
-import {Modaldetail, ImageModal} from '../../organisms/modal/DetailModal';
+import Table from "../../organisms/table/Table";
+import SearchBar from "../../organisms/searchBar/SearchBar";
+import { Modaldetail, ImageModal } from "../../organisms/modal/DetailModal";
+import Header from "../../organisms/header/Header";
 
 const Tickets = () => {
   const [solicitudes, setSolicitudes] = useState([
@@ -101,10 +102,11 @@ const Tickets = () => {
     setSearchTerm(value);
   };
 
-  const filteredSolicitudes = solicitudes.filter((solicitud) =>
-    solicitud.empleado.toLowerCase().includes(searchTerm) ||
-    solicitud.tipo.toLowerCase().includes(searchTerm) ||
-    solicitud.estado.toLowerCase().includes(searchTerm)
+  const filteredSolicitudes = solicitudes.filter(
+    (solicitud) =>
+      solicitud.empleado.toLowerCase().includes(searchTerm) ||
+      solicitud.tipo.toLowerCase().includes(searchTerm) ||
+      solicitud.estado.toLowerCase().includes(searchTerm)
   );
 
   const totalPages = Math.ceil(filteredSolicitudes.length / rowsPerPage);
@@ -136,7 +138,13 @@ const Tickets = () => {
     handleCloseModal();
   };
 
-  const tableHeaders = ["Fecha", "Empleado", "Tipo de solicitud", "Estado", "Detalles"];
+  const tableHeaders = [
+    "Fecha",
+    "Empleado",
+    "Tipo de solicitud",
+    "Estado",
+    "Detalles",
+  ];
 
   const renderTableRow = (solicitud) => (
     <tr key={solicitud.id}>
@@ -189,41 +197,44 @@ const Tickets = () => {
       )}
     </>
   );
-  
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div className="solicitudes-container">
-      <header className="header">
-        <h1>Solicitudes</h1>
-      </header>
-      <SearchBar 
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
-        placeholder= "Buscar"
-      />
-      <Table 
-        headers={tableHeaders}
-        data={currentRows}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={(_, page) => setCurrentPage(page)}
-        renderTableRow={renderTableRow}      
-      />
+    <div className="requestsScreen">
+      <Header title={"Solicitudes"} user={user} />
+      <div className="solicitudes-container">
+        <header className="header">
+          <h1>Solicitudes</h1>
+        </header>
+        <SearchBar
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          placeholder="Buscar"
+        />
+        <Table
+          headers={tableHeaders}
+          data={currentRows}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(_, page) => setCurrentPage(page)}
+          renderTableRow={renderTableRow}
+        />
 
-      <Modaldetail 
-        open={openModal}
-        onClose={()=> setOpenModal(false)}
-        data={selectedSolicitud}
-        onAccept={handleAccept}
-        onReject={handleReject}
-        renderContent={renderModalContent}
-      />
-      <ImageModal 
-        open={openImageModal}
-        onClose={()=> setOpenImageModal(false)}
-        imageUrl={selectedImage}
-      
-      />
+        <Modaldetail
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          data={selectedSolicitud}
+          onAccept={handleAccept}
+          onReject={handleReject}
+          renderContent={renderModalContent}
+        />
+        <ImageModal
+          open={openImageModal}
+          onClose={() => setOpenImageModal(false)}
+          imageUrl={selectedImage}
+        />
+      </div>
     </div>
   );
 };

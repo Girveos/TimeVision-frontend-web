@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
-import { Input, Button } from "antd";
+import React, { useState } from "react";
+import { Input, Button, message } from "antd";
 import "./Login.css";
-import { useNavigate } from 'react-router-dom';
-import { login } from '../../../config/routes';
-import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../../../schemas/loginSchema";
+import { login } from "../../../config/routes";
+import {
+  ExclamationCircleOutlined,
+  EyeInvisibleOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 
 function Login({ onLoginSuccess }) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleForgotPassword = () => {
-   
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
-  const onClick = async () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(loginSchema) });
+
+  const handleForgotPassword = () => {};
+
+  const onSubmit = handleSubmit(async (data) => {
     try {
-      await login(email, password);  
+      await login(data.user, data.password);
+
       const token = await localStorage.getItem("token");
 
       if (token) {
@@ -27,52 +39,95 @@ function Login({ onLoginSuccess }) {
         localStorage.removeItem("token");
       }
     } catch (error) {
-      console.log("AQUI ESTA EL ERROR", error)
-      alert("Error al iniciar sesión");
+      message.error("Ocurrió un error. Por favor, inicie sesión nuevamente.");
     }
-  };
+  });
 
   return (
-    <div className='LoginScreen'>
-      <div className='LoginCard'>
-        <div className='LoginContent'>
-          <h1>¡Bienvenido a TimeVision!</h1>
+    <div className="LoginScreen">
+      <div className="LoginCard">
+        <div className="LoginContent">
+          <h2>¡Bienvenido a TimeVision!</h2>
           <img src={require("../../../assets/LogoGrey.png")} alt="Logo" />
-          <h2>Inicia sesión para acceder a TimeVision</h2>
+          <h4>Inicia sesión para acceder a TimeVision</h4>
         </div>
-        <div className='LoginInputs'>
-          <h3>Correo empresarial:</h3>
-          <Input 
-            placeholder="" 
-            className="InputMail" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)} 
-          />
-          <h3>Contraseña:</h3>
-          <Input 
-            type="password" 
-            placeholder="" 
-            className="InputPassword" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} 
-          />
+        <div className="input-login-container">
+          <div>
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  type="text"
+                  placeholder="Correo electrónico"
+                  value={value}
+                  onChange={onChange}
+                  className="input-login"
+                />
+              )}
+              name="user"
+            />
+            {errors.user && (
+              <div className="errors-div">
+                <ExclamationCircleOutlined />
+                <label className="errors-label">{errors.user.message}</label>
+              </div>
+            )}
+          </div>
+          <div>
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Contraseña"
+                  value={value}
+                  onChange={onChange}
+                  className="input-login"
+                  suffix={
+                    showPassword ? (
+                      <EyeOutlined onClick={() => setShowPassword(false)} />
+                    ) : (
+                      <EyeInvisibleOutlined
+                        onClick={() => setShowPassword(true)}
+                      />
+                    )
+                  }
+                />
+              )}
+              name="password"
+            />
+            {errors.password && (
+              <div className="errors-div">
+                <ExclamationCircleOutlined />
+                <label className="errors-label">
+                  {errors.password.message}
+                </label>
+              </div>
+            )}
+          </div>
         </div>
-        <div className='LoginPasswordRecover'>
+        <div className="LoginPasswordRecover">
           <span>
-            ¿Olvidaste tu contraseña? {" "}
-            <a href="/" onClick={handleForgotPassword} style={{ color: '#8696BB', cursor: 'pointer' }}>
-               Haz clic aquí
+            ¿Olvidaste tu contraseña?{" "}
+            <a
+              href="/"
+              onClick={handleForgotPassword}
+              style={{ color: "#8696BB", cursor: "pointer" }}
+            >
+              Haz clic aquí.
             </a>
           </span>
         </div>
 
-        <div className='LoginButton'>
-          <Button type="primary" className="LoginButton" onClick={onClick}>Ingresa</Button>
+        <div className="LoginButton">
+          <Button type="primary" className="LoginButton" onClick={onSubmit}>
+            Ingresar
+          </Button>
         </div>
       </div>
-      <div className='LoginBackground' />
+      <div className="LoginBackground" />
     </div>
-  )
+  );
 }
 
 export default Login;

@@ -15,6 +15,10 @@ const Profile = () => {
     navigate("/login");
   };
 
+  const updateProfilePhoto = () => {
+    console.log("CAMBIANDO FOTO");
+  };
+
   const handleOpenModal = () => {
     setModalVisible(true);
   };
@@ -30,7 +34,7 @@ const Profile = () => {
       <Header title={"Perfil"} user={user} />
       <div className="body-profile">
         <div className="photo-container">
-          <div className="photo-div">
+          <div className="photo-div" onClick={updateProfilePhoto}>
             <img
               src={user.photo}
               alt="Profile-image"
@@ -43,7 +47,7 @@ const Profile = () => {
           <div className="userInfo-div">
             <div className="subtitle">
               <p>Nombre completo</p>
-              <div className="label">
+              <div className="labeldiv">
                 <label>
                   {user.name} {user.lastname}
                 </label>
@@ -51,7 +55,7 @@ const Profile = () => {
             </div>
             <div className="subtitle">
               <p>Cargo</p>
-              <div className="label">
+              <div className="labeldiv">
                 <label>{user.position}</label>
               </div>
             </div>
@@ -59,13 +63,13 @@ const Profile = () => {
           <div className="userInfo-div">
             <div className="subtitle">
               <p>Correo electrónico</p>
-              <div className="label">
+              <div className="labeldiv">
                 <label>{user.email}</label>
               </div>
             </div>
             <div className="subtitle">
               <p>Departamento</p>
-              <div className="label">
+              <div className="labeldiv">
                 <label>{user.department}</label>
               </div>
             </div>

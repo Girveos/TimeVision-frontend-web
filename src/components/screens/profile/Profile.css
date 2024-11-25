@@ -28,6 +28,7 @@
 
 .photo-div{
   display: flex;
+  cursor: pointer;
 }
 
 .photo-div .img-profile {
@@ -53,7 +54,7 @@
   gap: 10px;
 }
 
-.userInfo-div .label {
+.userInfo-div .labeldiv {
   background: #dfdede;
   border-radius: 8px;
   width: 80%;

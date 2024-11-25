@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Login from "./components/screens/login/Login";
 import { jwtDecode } from "jwt-decode";
@@ -14,35 +19,55 @@ import Profile from "./components/screens/profile/Profile";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
+    const validateToken = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const payload = jwtDecode(token);
+          const currentTime = new Date().getTime();
 
-        if (decodedToken.ep > currentTime) {
-          setIsAuthenticated(true);
-        } else {
-          alert("La sesión ha expirado.");
+          const { ep } = payload;
+
+          console.log("ep:", ep);
+          console.log("currentTime:", currentTime);
+
+          if (ep <= currentTime) {
+            alert("La sesión ha expirado.");
+            localStorage.removeItem("token");
+            setIsAuthenticated(false);
+          } else {
+            setIsAuthenticated(true);
+          }
+        } catch (error) {
+          console.error("Token inválido:", error);
           localStorage.removeItem("token");
+          setIsAuthenticated(false);
         }
-      } catch (error) {
-        console.error("Token inválido:", error);
-        localStorage.removeItem("token");
       }
-    }
+      setCheckingAuth(false); 
+    };
+
+    validateToken();
   }, []);
+
+  if (checkingAuth) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <Router>
       <Routes>
-        <Route path="login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+        <Route
+          path="login"
+          element={<Login onLoginSuccess={handleLoginSuccess} />}
+        />
         {isAuthenticated ? (
           <Route path="/" element={<MainLayout />}>
             <Route path="home" element={<Home />} />
@@ -55,8 +80,13 @@ function App() {
             <Route path="settings" element={<Settings />} />
           </Route>
         ) : (
-          <Route path="login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/" element={<Navigate to="/login" />} />
         )}
+
+        <Route
+          path="*"
+          element={<Navigate to={isAuthenticated ? "/home" : "/login"} />}
+        />
       </Routes>
     </Router>
   );

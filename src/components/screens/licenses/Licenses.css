@@ -1,3 +1,11 @@
+.licensesScreen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 .licenses-container {
   width: 80%;
