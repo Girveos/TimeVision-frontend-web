@@ -38,10 +38,10 @@ export const Modaldetail = ({
         {data && renderContent(data)}
         {data && showActions && (
           <div className="modal-buttons">
-            <button className="accept-btn" onClick={() => onAccept(data.id)}>
+            <button className="accept-btn" onClick={() => onAccept(data._id)}>
               Aceptar
             </button>
-            <button className="reject-btn" onClick={() => onReject(data.id)}>
+            <button className="reject-btn" onClick={() => onReject(data._id)}>
               Rechazar
             </button>
           </div>

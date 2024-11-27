@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Button, message } from "antd";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../../schemas/loginSchema";
@@ -26,22 +27,32 @@ function Login({ onLoginSuccess }) {
   const handleForgotPassword = () => {};
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      await login(data.user, data.password);
+  try {
+    await login(data.user, data.password); 
 
-      const token = await localStorage.getItem("token");
+    const token = localStorage.getItem("token"); 
 
-      if (token) {
-        onLoginSuccess();
-        navigate("/home");
-      } else {
-        alert("No tienes permisos para acceder.");
-        localStorage.removeItem("token");
-      }
-    } catch (error) {
-      message.error("Ocurrió un error. Por favor, inicie sesión nuevamente.");
+    if (!token) {
+      throw new Error("Token no encontrado. Por favor, inicia sesión de nuevo.");
     }
-  });
+
+    const payload = jwtDecode(token); 
+
+    if (payload.rol.toLowerCase() === "jefe") {
+      onLoginSuccess();
+      navigate("/home");
+    } else {
+      message.error("No tienes permisos para acceder.");
+      localStorage.removeItem("token"); 
+    }
+  } catch (error) {
+    console.error("Error durante el login:", error);
+    message.error(
+      error.message || "Ocurrió un error. Por favor, inicie sesión nuevamente."
+    );
+  }
+});
+
 
   return (
     <div className="LoginScreen">
@@ -49,7 +60,7 @@ function Login({ onLoginSuccess }) {
         <div className="LoginContent">
           <h2>¡Bienvenido a TimeVision!</h2>
           <img src={require("../../../assets/LogoGrey.png")} alt="Logo" />
-          <h4>Inicia sesión para acceder a TimeVision</h4>
+          <h3>Inicia sesión para acceder a TimeVision</h3>
         </div>
         <div className="input-login-container">
           <div>

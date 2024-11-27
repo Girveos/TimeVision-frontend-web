@@ -7,68 +7,25 @@
   flex-direction: column;
 }
 
+.searchBar-container {
+  width: 90%;
+}
+
 .solicitudes-container {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Quicksand', sans-serif;
-  }
- 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-  
-  .search-bar input {
-    width: 170px;
-    padding: 10px 40px 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    outline: none;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    background-color: #C7C7C7;
-  }
-  
-  .search-bar input::placeholder {
-    color: #aaa;
-  }
-  
-  .search-bar input:focus {
-    border-color: #007BFF;
-    text-align: center;
-  }
-  
-  .search-icon {
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 18px;
-  }
-
-  .details-btn {
-    color: black;
-    border: none;
-    padding: 5px 10px;
+    background-color: #ffffff;
     border-radius: 5px;
-    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins";
   }
 
-  .solicitudes-table {
+.verMas-icon {
+    color: #3391D0;
+    font-size: 20px;
+  }
+
+/*   .solicitudes-table {
     width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
@@ -84,12 +41,36 @@
   tbody tr {
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-  }
+  } */
 
-  .pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  .estado.pendiente {
+    color: #d35400;
+    background-color: #fef5e7;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px #d35400;
+    font-size: 12px;
+  }
+  
+  .estado.aceptada {
+    color: #145a32 ;
+    background-color: #d4efdf;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px #145a32 ;
+    font-size: 12px;
+  }
+  
+  .estado.rechazada {
+    color: #7b241c;
+    background-color: #fadbd8 ;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px #7b241c;
+    font-size: 12px;
   }
 
   .modal-box {

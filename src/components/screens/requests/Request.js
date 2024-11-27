@@ -1,97 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Request.css";
 import Table from "../../organisms/table/Table";
 import SearchBar from "../../organisms/searchBar/SearchBar";
 import { Modaldetail, ImageModal } from "../../organisms/modal/DetailModal";
 import Header from "../../organisms/header/Header";
+import { FileSearchOutlined } from "@ant-design/icons";
+import { Tag } from "antd";
+import { getRequest } from "../../../config/routes";
 
-const Tickets = () => {
-  const [solicitudes, setSolicitudes] = useState([
-    {
-      id: 1,
-      fecha: "12/09/2024",
-      empleado: "Ana Lopera",
-      tipo: "Vacaciones",
-      estado: "Pendiente",
-      descripcion: "Vacaciones",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      id: 2,
-      fecha: "12/09/2024",
-      empleado: "Carlos",
-      tipo: "Días libres",
-      estado: "Pendiente",
-      descripcion: "Días libres",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      id: 3,
-      fecha: "10/09/2024",
-      empleado: "Ana Lopera",
-      tipo: "Vacaciones",
-      estado: "Pendiente",
-      descripcion: "Vacaciones",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      id: 4,
-      fecha: "09/09/2024",
-      empleado: "Carlos",
-      tipo: "Días libres",
-      estado: "Pendiente",
-      descripcion: "Días libres",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      id: 5,
-      fecha: "12/09/2024",
-      empleado: "Ana Lopera",
-      tipo: "Vacaciones",
-      estado: "Pendiente",
-      descripcion: "Vacaciones",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      id: 6,
-      fecha: "12/09/2024",
-      empleado: "Carlos",
-      tipo: "Días libres",
-      estado: "Pendiente",
-      descripcion: "Días libres",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      id: 7,
-      fecha: "10/09/2024",
-      empleado: "Ana Lopera",
-      tipo: "Vacaciones",
-      estado: "Pendiente",
-      descripcion: "Vacaciones",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      id: 8,
-      fecha: "09/09/2024",
-      empleado: "Carlos",
-      tipo: "Días libres",
-      estado: "Pendiente",
-      descripcion: "Días libres",
-      imagen:
-        "https://images.pexels.com/photos/8402676/pexels-photo-8402676.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-  ]);
+const Request = () => {
+  const [solicitudes, setSolicitudes] = useState([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await getRequest();
+        console.log(response.data);
+        if (response.success) {
+          const sortedRequests = response.data.sort((a, b) => new Date(b.start_date) - new Date(a.start_date));
+
+          setSolicitudes(sortedRequests);
+        }
+      } catch (err) {
+        console.error("Error al obtener el usuario:", err);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 4;
+  const rowsPerPage = 8;
   const [openModal, setOpenModal] = useState(false);
   const [selectedSolicitud, setSelectedSolicitud] = useState(null);
   const [openImageModal, setOpenImageModal] = useState(false);
@@ -102,12 +42,17 @@ const Tickets = () => {
     setSearchTerm(value);
   };
 
-  const filteredSolicitudes = solicitudes.filter(
-    (solicitud) =>
-      solicitud.empleado.toLowerCase().includes(searchTerm) ||
-      solicitud.tipo.toLowerCase().includes(searchTerm) ||
-      solicitud.estado.toLowerCase().includes(searchTerm)
-  );
+  const filteredSolicitudes = solicitudes.filter((solicitud) => {
+    const empleado = solicitud.user_name?.toLowerCase() || "";
+    const tipo = solicitud.type?.toLowerCase() || "";
+    const estado = solicitud.state?.toLowerCase() || "";
+
+    return (
+      empleado.includes(searchTerm) ||
+      tipo.includes(searchTerm) ||
+      estado.includes(searchTerm)
+    );
+  });
 
   const totalPages = Math.ceil(filteredSolicitudes.length / rowsPerPage);
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -122,23 +67,22 @@ const Tickets = () => {
     setSelectedSolicitud(null);
   };
 
-  const handleAccept = (id) => {
+  const handleAccept = (_id) => {
     const updatedSolicitudes = solicitudes.map((solicitud) =>
-      solicitud.id === id ? { ...solicitud, estado: "Aceptada" } : solicitud
+      solicitud._id === _id ? { ...solicitud, state: "Aceptada" } : solicitud
+    );
+    setSolicitudes(updatedSolicitudes);
+  };
+
+  const handleReject = (_id) => {
+    const updatedSolicitudes = solicitudes.map((solicitud) =>
+      solicitud._id === _id ? { ...solicitud, state: "Rechazada" } : solicitud
     );
     setSolicitudes(updatedSolicitudes);
     handleCloseModal();
   };
 
-  const handleReject = (id) => {
-    const updatedSolicitudes = solicitudes.map((solicitud) =>
-      solicitud.id === id ? { ...solicitud, estado: "Rechazada" } : solicitud
-    );
-    setSolicitudes(updatedSolicitudes);
-    handleCloseModal();
-  };
-
-  const tableHeaders = [
+  const columns = [
     "Fecha",
     "Empleado",
     "Tipo de solicitud",
@@ -147,21 +91,31 @@ const Tickets = () => {
   ];
 
   const renderTableRow = (solicitud) => (
-    <tr key={solicitud.id}>
-      <td>{solicitud.fecha}</td>
-      <td>{solicitud.empleado}</td>
-      <td>{solicitud.tipo}</td>
-      <td>{solicitud.estado}</td>
+    <tr key={solicitud._id}>
+      <td>{new Date(solicitud.start_date).toISOString().split('T')[0]}</td>
+      <td>{solicitud.user_name}</td>
+      <td>{solicitud.type}</td>
       <td>
-        <button
-          className="details-btn"
+        <Tag
+          color={
+            solicitud.state.toLowerCase() === "aceptada"
+              ? "green"
+              : solicitud.state.toLowerCase() === "rechazada"
+              ? "red"
+              : "orange"
+          }
+        >
+          {solicitud.state}
+        </Tag>
+      </td>
+      <td>
+        <FileSearchOutlined
+          className="verMas-icon"
           onClick={() => {
             setSelectedSolicitud(solicitud);
             setOpenModal(true);
           }}
-        >
-          Ver más
-        </button>
+        />
       </td>
     </tr>
   );
@@ -170,23 +124,23 @@ const Tickets = () => {
     <>
       <h2>Detalles de la solicitud</h2>
       <p className="detalle-item">
-        <span className="label">Empleado:</span> {solicitud.empleado}
+        <span className="label">Empleado:</span> {solicitud.user_name}
       </p>
       <p className="detalle-item">
-        <span className="label">Fecha:</span> {solicitud.fecha}
+        <span className="label">Fecha:</span> {solicitud.start_date}
       </p>
       <p className="detalle-item">
-        <span className="label">Tipo:</span> {solicitud.tipo}
+        <span className="label">Tipo:</span> {solicitud.type}
       </p>
       <p className="detalle-item">
-        <span className="label">Estado:</span> {solicitud.estado}
+        <span className="label">Estado:</span> {solicitud.state}
       </p>
       <p className="detalle-item">
-        <span className="label">Descripción:</span> {solicitud.descripcion}
+        <span className="label">Descripción:</span> {solicitud.description}
       </p>
-      {solicitud.imagen && (
+      {solicitud.attach && (
         <img
-          src={solicitud.imagen}
+          src={solicitud.attach}
           alt="Solicitud"
           className="modal-image"
           onClick={() => {
@@ -203,24 +157,22 @@ const Tickets = () => {
   return (
     <div className="requestsScreen">
       <Header title={"Solicitudes"} user={user} />
-      <div className="solicitudes-container">
-        <header className="header">
-          <h1>Solicitudes</h1>
-        </header>
+      <div className="searchBar-container">
         <SearchBar
           searchTerm={searchTerm}
           onSearchChange={handleSearchChange}
           placeholder="Buscar"
         />
+      </div>
+      <div className="solicitudes-container">
         <Table
-          headers={tableHeaders}
+          headers={columns}
           data={currentRows}
           currentPage={currentPage}
-          totalPages={totalPages}
+          totalPages={filteredSolicitudes.length}
           onPageChange={(_, page) => setCurrentPage(page)}
           renderTableRow={renderTableRow}
         />
-
         <Modaldetail
           open={openModal}
           onClose={() => setOpenModal(false)}
@@ -239,4 +191,4 @@ const Tickets = () => {
   );
 };
 
-export default Tickets;
+export default Request;

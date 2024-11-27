@@ -35,9 +35,6 @@ function App() {
 
           const { ep } = payload;
 
-          console.log("ep:", ep);
-          console.log("currentTime:", currentTime);
-
           if (ep <= currentTime) {
             alert("La sesión ha expirado.");
             localStorage.removeItem("token");
