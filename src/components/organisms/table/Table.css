@@ -2,8 +2,11 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  overflow-x: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   font-family: "Poppins";
+  height: 70vh;
+  scrollbar-width: thin;
 }
 
 .custom-table {
@@ -19,6 +22,12 @@
   text-align: left;
   border-bottom: 1px solid #ddd;
   font-size: 16px;
+}
+
+.custom-table thead {
+  z-index: 2;
+  position: sticky;
+  top: 0;
 }
 
 .custom-table thead tr {
@@ -64,39 +73,20 @@
 
 .pagination-container {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: flex-end;
+  margin: 10px 0px;
+}
+
+.pagination-container p {
+  font-family: "Poppins";
+  color: #818181;
+  font-size: 12px;
 }
 
 .pagination-container .MuiPagination-root {
   display: flex;
   justify-content: center;
 }
-
-/* .pagination-container .MuiPaginationItem-root {
-  color: black;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
-} */
-
-/* .pagination-container .MuiPaginationItem-root:hover {
-  background-color: #e0e0e0;
-}
- */
-/* .pagination-container .Mui-selected {
-  background-color: rgb(58, 57, 57) !important;
-  color: white !important;
-} */
-
-/* .pagination-container button {
-  padding: 8px 12px;
-  margin: 0 5px;
-  border: none;
-  background-color: rgb(44, 43, 43);
-  color: white;
-  border-radius: 5px;
-} */
 
 @media (max-width: 768px) {
   .table-container {

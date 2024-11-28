@@ -25,7 +25,7 @@ const Home = () => {
             photo: response.data.photo,
             email: response.data.email,
             position: response.data.position,
-            department: response.data.id_department
+            department: response.data.department_name,
           };
           localStorage.setItem("user", JSON.stringify(userData));
           setUser(userData);
@@ -60,7 +60,7 @@ const Home = () => {
 
   return (
     <div className="HomeScreen">
-      <Header title={"Panel principal"} user={user}/>
+      <Header title={"Panel principal"} user={user} />
       <div className="bodyContent">
         <div className="newsNotification">
           <div className="titleNews">

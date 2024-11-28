@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import './DetailModal.css';
+import { Button } from 'antd';
 
 export const DetailModal = ({ 
   open, 
@@ -33,17 +34,16 @@ export const Modaldetail = ({
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
-      <Box className="modal-box">
-        {/* Solo renderiza el contenido si data existe */}
+      <Box className="modal-box-request">
         {data && renderContent(data)}
         {data && showActions && (
           <div className="modal-buttons">
-            <button className="accept-btn" onClick={() => onAccept(data._id)}>
+            <Button className="accept-btn" onClick={() => onAccept(data._id)}>
               Aceptar
-            </button>
-            <button className="reject-btn" onClick={() => onReject(data._id)}>
+            </Button>
+            <Button className="reject-btn" onClick={() => onReject(data._id)}>
               Rechazar
-            </button>
+            </Button>
           </div>
         )}
       </Box>
@@ -68,11 +68,3 @@ export const ImageModal = ({ open, onClose, imageUrl }) => {
     </Modal>
   );
 };
-
-export const Modals = {
-  Modaldetail,
-  DetailModal,
-  ImageModal
-};
-
-export default Modals;

@@ -41,9 +41,44 @@ export const getUser = async () => {
     });
 
     if (response.status === 200) {
-      return { success: true, data: response.data };
-    } 
+      const data = response.data;
+      
+     
+    
+      const department = await getUserDepartment(data.id_department);
+
+      console.log("AQUI", department.data.name);
+      
+      data.department_name = department.data.name;
+
+      console.log(data)
+      return { success: true, data: data };
+    }
   } catch (error) {
+    return { success: false, message: error.message };
+  }
+};
+
+export const getUserDepartment = async (id) => {
+  try {
+    const token = await localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token. Inicia sesión nuevamente.");
+    }
+    console.log("Aqui", id);
+    const response = await api.get(`/department/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("RESPONSE", response.data);
+
+    if (response.status === 200) {
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.log(error);
     return { success: false, message: error.message };
   }
 };
@@ -64,11 +99,11 @@ export const updatePassword = async (currentPassword, newPassword) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const data = response.data
+    const data = response.data;
 
     if (response.status === 200) {
       return { success: true, message: data };
-    } 
+    }
   } catch (error) {
     return { success: false, message: error.message };
   }
@@ -81,13 +116,13 @@ export const getRequest = async () => {
       throw new Error("No se encontró el token. Inicia sesión nuevamente.");
     }
 
-    const response = await api.get("/request/me", {
+    const response = await api.get("/request/requestsDeparment", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    const requests = response.data
+    const requests = response.data;
     const detailedRequest = [];
 
     for (const request of requests) {
@@ -95,16 +130,18 @@ export const getRequest = async () => {
       if (requestDetails.success) {
         detailedRequest.push({
           ...request,
-          user_name: `${requestDetails.data.name} ${requestDetails.data.lastname}`
+          user_name: `${requestDetails.data.name} ${requestDetails.data.lastname}`,
         });
-        
       } else {
-        console.error(`Error obteniendo detalles del turno ${request._id}:`, requestDetails.message);
+        console.error(
+          `Error obteniendo detalles del turno ${request._id}:`,
+          requestDetails.message
+        );
       }
     }
     return { success: true, data: detailedRequest };
   } catch (error) {
-   return { success: false, message: error};
+    return { success: false, message: error };
   }
 };
 
@@ -129,4 +166,3 @@ export const getUserById = async (id) => {
     return { success: false, message: error };
   }
 };
-

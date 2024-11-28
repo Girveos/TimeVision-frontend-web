@@ -81,7 +81,10 @@ const Profile = () => {
                 Cerrar sesión
               </button>
             </div>
-            <ChangePasswordModal visible={modalVisible} onClose={handleCloseModal}/>
+            <ChangePasswordModal
+              visible={modalVisible}
+              onClose={handleCloseModal}
+            />
           </div>
         </div>
       </div>
