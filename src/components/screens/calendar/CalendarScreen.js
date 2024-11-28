@@ -9,9 +9,15 @@ import { format } from "date-fns";
 const CalendarScreen = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [draggedEmployee, setDraggedEmployee] = useState(null);
-  const [employees, setEmployees] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [employees, setEmployees] = useState({
+    [format(new Date(), 'yyyy-MM-dd')]: {
+      1: [], // Mañana
+      2: [], // Tarde
+      3: []  // Noche
+    }
+  });
   const [assignments, setAssignments] = useState([]);
   
   // Estado para los empleados
@@ -72,7 +78,6 @@ const CalendarScreen = () => {
       try {
         const result = await getShifts();
         if (result.success) {
-          setAssignments(result.data);
           
           // Organizamos los empleados por fecha y turno
           const employeesByDateAndShift = {};
@@ -84,7 +89,7 @@ const CalendarScreen = () => {
                 getUserById(assignment.id_user),
                 getShiftById(assignment.id_shift)
               ]);
-            
+              
               
               if (userResult.success && shiftResult.success) {
                 const shiftData = shiftResult.data;
@@ -130,9 +135,18 @@ const CalendarScreen = () => {
                 employeesByDateAndShift[formattedDate][frontendShiftId].push({
                   id: assignment.id_user,
                   name: `${userResult.data.name} ${userResult.data.lastname}`,
-                  avatar: userResult.data.avatar || 
-                         userResult.data.name.substring(0, 2).toUpperCase()
+                  photo: userResult.data.photo || null,
+                  position: userResult.data.position,
+                  email: userResult.data.email,
+                  telephone: userResult.data.telephone,
+                  type_doc: userResult.data.type_doc,
+                  num_doc: userResult.data.num_doc,
+                  department: userResult.data.id_department,
+                  active: userResult.data.active,
+                  firstname: userResult.data.name,
+                  lastname: userResult.data.lastname
                 });
+
               }
             } catch (error) {
               console.error("Error procesando asignación:", error);
@@ -142,12 +156,11 @@ const CalendarScreen = () => {
               });
             }
           }
+          
           setEmployees(employeesByDateAndShift);
         }
       } catch (error) {
         console.error("Error al cargar asignaciones:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -156,6 +169,9 @@ const CalendarScreen = () => {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
+    if (format(date, 'M') !== format(currentMonth, 'M')) {
+      setCurrentMonth(date);
+    }
   };
 
   const handleDragStart = (employee, shiftId, date) => {
@@ -212,20 +228,22 @@ const CalendarScreen = () => {
       <Header title={"Calendario"} user={user} />
       <div className="body-calendar">
         <div className="calendar-container">
-          <Calendar onDateSelect={handleDateSelect} />
-          {loading ? (
-            <div>Cargando...</div>
-          ) : (
-            <DayDetail 
-              date={selectedDate}
-              schedule={schedule}
-              employees={employees}
-              onDragStart={handleDragStart}
-              onDragEnd={handleDragEnd}
-              onDrop={handleDrop}
-              isDragging={!!draggedEmployee}
-            />
-          )}
+          <Calendar 
+            onDateSelect={handleDateSelect}
+            selectedDate={selectedDate}
+            currentMonth={currentMonth}
+            onMonthChange={setCurrentMonth}
+          />
+          <DayDetail 
+            date={selectedDate}
+            schedule={schedule}
+            employees={employees}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDrop={handleDrop}
+            isDragging={!!draggedEmployee}
+            onDateSelect={handleDateSelect}
+          />
         </div>
       </div>
     </div>
