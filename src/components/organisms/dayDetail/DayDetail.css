@@ -1,0 +1,105 @@
+.day-detail {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.day-detail-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.day-detail-header h3 {
+  margin: 0;
+  text-transform: capitalize;
+  color: #333;
+}
+
+.shifts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shift-card {
+  padding: 15px;
+  border-radius: 6px;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.shift-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.shift-card.expanded {
+  transform: translateX(10px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.shift-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shift-name {
+  font-weight: bold;
+}
+
+.shift-time {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.employees-list {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.employee-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.employee-card:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+
+.employee-card:active {
+  cursor: grabbing;
+}
+
+.employee-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2196f3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+.employee-name {
+  font-size: 0.9em;
+  color: #333;
+} 

@@ -130,3 +130,49 @@ export const getUserById = async (id) => {
   }
 };
 
+export const getShifts = async () => {
+  try {
+    const token = await localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token");
+    }
+
+    const response = await api.get("/assignment/DepartmentAssignments", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.error( error);
+    return { 
+      success: false, 
+      error: error.response?.data?.msg || error.message 
+    };
+  }
+};
+
+export const getShiftById = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token");
+    }
+
+    const response = await api.get(`/shift/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.error("Error al obtener el turno:", error);
+    return { success: false, error: error.message };
+  }
+};
