@@ -53,22 +53,20 @@ const DayDetail = ({
       .replace('é', 'e')
       .replace('á', 'a');
     
-    const dayMap = {
-      'lunes': 'monday',
-      'martes': 'tuesday',
-      'miercoles': 'wednesday',
-      'jueves': 'thursday',
-      'viernes': 'friday',
-      'sabado': 'saturday',
-      'domingo': 'sunday'
-    };
-    
-    return schedule[dayMap[dayKey]]?.shifts || [];
+    const currentDate = format(date, 'yyyy-MM-dd');
+
+    const shiftsWithEmployees = schedule[dayKey]?.shifts.filter(shift => {
+      const hasEmployees = (employees[currentDate]?.[shift.id]?.length || 0) > 0;
+      return hasEmployees;
+    }) || [];
+
+    return shiftsWithEmployees;
   };
 
   const getEmployeesForShift = (shiftId) => {
     const currentDate = format(date, 'yyyy-MM-dd');
-    return (employees[currentDate]?.[shiftId] || []);
+    const employeesInShift = employees[currentDate]?.[shiftId] || [];
+    return employeesInShift;
   };
 
   const shifts = getDayShifts();

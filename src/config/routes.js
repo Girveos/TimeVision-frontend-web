@@ -143,11 +143,13 @@ export const getShifts = async () => {
       },
     });
 
+
     if (response.status === 200) {
-      return { success: true, data: response.data };
+      return { success: true, data: response.data.data };
     }
   } catch (error) {
-    console.error( error);
+    console.error("Error detallado en getShifts:", error);
+    console.error("Respuesta del servidor:", error.response?.data);
     return { 
       success: false, 
       error: error.response?.data?.msg || error.message 
