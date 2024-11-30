@@ -17,6 +17,21 @@
   margin-right: 15px;
 }
 
+.initials-userprofile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  background-color: #358ac4;
+  margin-right: 15px;
+}
+
 p {
   margin: 0;
 }
@@ -25,6 +40,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: max-content;
 }
 
 .user-name {

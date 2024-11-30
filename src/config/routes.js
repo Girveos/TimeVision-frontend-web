@@ -42,12 +42,8 @@ export const getUser = async () => {
 
     if (response.status === 200) {
       const data = response.data;
-      
-     
-    
-      const department = await getUserDepartment(data.id_department);
 
-      console.log("AQUI", department.data.name);
+      const department = await getUserDepartment(data.id_department);
       
       data.department_name = department.data.name;
 
@@ -164,5 +160,54 @@ export const getUserById = async (id) => {
   } catch (error) {
     console.error("Error al obtener el usuario:", error);
     return { success: false, message: error };
+  }
+};
+
+export const updateRequestState = async (id, state) => {
+  try {
+    const token = await localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token. Inicia sesión nuevamente.");
+    }
+
+    const form = new FormData();
+    form.append("state", state);
+
+    const response = await api.patch(`/request/update/${id}`, form, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.error("Error al obtener el usuario:", error);
+    return { success: false, message: error };
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    const token = await localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token. Inicia sesión nuevamente.");
+    }
+
+    const response = await api.get("/user/usersDepartment", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      const data = response.data;
+
+      console.log(data)
+      return { success: true, data: data };
+    }
+  } catch (error) {
+    return { success: false, message: error.message };
   }
 };

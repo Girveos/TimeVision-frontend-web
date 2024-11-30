@@ -12,7 +12,6 @@ import Home from "./components/screens/home/Home";
 import Shifts from "./components/screens/shifts/Shifts";
 import Request from "./components/screens/requests/Request";
 import CalendarScreen from "./components/screens/calendar/CalendarScreen";
-import Licenses from "./components/screens/licenses/Licenses";
 import Employees from "./components/screens/employees/Employees";
 import Settings from "./components/screens/settings/Settings";
 import Profile from "./components/screens/profile/Profile";
@@ -71,7 +70,6 @@ function App() {
             <Route path="shifts" element={<Shifts />} />
             <Route path="requests" element={<Request />} />
             <Route path="calendar" element={<CalendarScreen />} />
-            <Route path="licenses" element={<Licenses />} />
             <Route path="employees" element={<Employees />} />
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />

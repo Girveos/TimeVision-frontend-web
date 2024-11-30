@@ -27,6 +27,12 @@ const Profile = () => {
     setModalVisible(false);
   };
 
+  const getInitials = (name) => {
+    if (!name) return '';
+    const nameParts = name.split(' ');
+    return nameParts.map(part => part[0].toUpperCase()).join('');
+  };
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
@@ -35,11 +41,19 @@ const Profile = () => {
       <div className="body-profile">
         <div className="photo-container">
           <div className="photo-div" onClick={updateProfilePhoto}>
-            <img
-              src={user.photo}
-              alt="Profile-image"
-              className="img-profile"
-            ></img>
+            {user.photo ? (
+              <img
+                src={user.photo}
+                alt="Profile-image"
+                className="img-profile"
+              ></img>
+            ) : (
+              <div
+                className="initials-profile"
+              >
+                {getInitials(`${user.name} ${user.lastname}`)}
+              </div>
+            )}
           </div>
           <p>Bienvenido {user.name}</p>
         </div>

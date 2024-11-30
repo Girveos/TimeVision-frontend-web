@@ -56,14 +56,6 @@ export const SiderbarMenu = () => {
           </li>
           <li>
             <NavLink
-              to="/licenses"
-              className={({ isActive }) => (isActive ? "active-link" : "")}
-            >
-              <SolutionOutlined /> Licencias
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
               to="/employees"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >

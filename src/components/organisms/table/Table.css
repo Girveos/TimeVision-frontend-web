@@ -83,6 +83,12 @@
   font-size: 12px;
 }
 
+.pagination-container div {
+  font-family: "Poppins";
+  color: #818181;
+  font-size: 12px;
+}
+
 .pagination-container .MuiPagination-root {
   display: flex;
   justify-content: center;

@@ -47,6 +47,21 @@
   width: 100%;
 }
 
+.initials-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 15vh;
+  height: 15vh;
+  border-radius: 50%;
+  background-color: #358ac4;
+  font-family: "Poppins";
+}
+
 .userInfo-div {
   display: flex;
   flex-direction: column;
@@ -89,7 +104,7 @@
 .buttons-container button {
   background-color: #e4f0ff;
   color: #197bbd;
-  border: #197bbd;
+  border: solid 1px #197bbd;
   border-radius: 5px;
   font-family: "Poppins";
   width: 40%;

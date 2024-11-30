@@ -6,7 +6,7 @@ import { Modaldetail, ImageModal } from "../../organisms/modal/DetailModal";
 import Header from "../../organisms/header/Header";
 import { FileSearchOutlined } from "@ant-design/icons";
 import { Tag } from "antd";
-import { getRequest } from "../../../config/routes";
+import { getRequest, updateRequestState } from "../../../config/routes";
 
 const Request = () => {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -19,21 +19,22 @@ const Request = () => {
   const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchRequest = async () => {
       try {
         const response = await getRequest();
         if (response.success) {
           const sortedRequests = response.data.sort(
             (a, b) => new Date(b.start_date) - new Date(a.start_date)
           );
+          console.log(sortedRequests);
           setSolicitudes(sortedRequests);
         }
       } catch (err) {
-        console.error("Error al obtener el usuario:", err);
+        console.error("Error al obtener las solicitudes:", err);
       }
     };
 
-    fetchUserData();
+    fetchRequest();
   }, []);
 
   const pendientes = solicitudes.filter(
@@ -84,6 +85,7 @@ const Request = () => {
       solicitud._id === _id ? { ...solicitud, state: "Aceptada" } : solicitud
     );
     setSolicitudes(updatedSolicitudes);
+    updateRequestState(_id, "Aceptada");
     handleCloseModal();
   };
 
@@ -92,6 +94,7 @@ const Request = () => {
       solicitud._id === _id ? { ...solicitud, state: "Rechazada" } : solicitud
     );
     setSolicitudes(updatedSolicitudes);
+    updateRequestState(_id, "Rechazada");
     handleCloseModal();
   };
 
@@ -112,7 +115,7 @@ const Request = () => {
           year: "numeric",
           timeZone: "UTC",
         })
-          .format(new Date(solicitud.start_date))
+          .format(new Date(solicitud.create_date))
           .replaceAll("/", "-")}
       </td>
       <td>{solicitud.user_name}</td>
