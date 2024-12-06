@@ -68,7 +68,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route path="home" element={<Home />} />
             <Route path="shifts" element={<Shifts />} />
-            <Route path="requests" element={<Request />} />
+            <Route path="requests/:id?" element={<Request />} />
             <Route path="calendar" element={<CalendarScreen />} />
             <Route path="employees" element={<Employees />} />
             <Route path="profile" element={<Profile />} />

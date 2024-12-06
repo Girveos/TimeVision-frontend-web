@@ -7,11 +7,12 @@ import personalEnTurnoIcon from "../../../assets/personalEnTurno1.png";
 import personalEnLicenciaIcon from "../../../assets/personalEnLicencia1.png";
 import personalDisponiblecon from "../../../assets/personalDisponible1.png";
 import { BellOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { getUser } from "../../../config/routes";
+import { getRequest, getUser } from "../../../config/routes";
 import Header from "../../organisms/header/Header";
 
 const Home = () => {
   const [user, setUser] = useState(null);
+  const [solicitudes, setSolicitudes] = useState([]);
   const notificationsRef = useRef(null);
 
   useEffect(() => {
@@ -35,7 +36,23 @@ const Home = () => {
       }
     };
 
+    const fetchRequest = async () => {
+      try {
+        const response = await getRequest();
+        if (response.success) {
+          const sortedRequests = response.data
+            .filter((request) => request.state.toLowerCase() === "pendiente")
+            .sort((a, b) => new Date(a.create_date) - new Date(b.create_date));
+          console.log(sortedRequests);
+          setSolicitudes(sortedRequests);
+        }
+      } catch (err) {
+        console.error("Error al obtener las solicitudes:", err);
+      }
+    };
+
     fetchUserData();
+    fetchRequest();
   }, []);
 
   const scrollLeft = () => {
@@ -106,53 +123,37 @@ const Home = () => {
         </div>
         <div className="staticsNotification">
           <div className="notificationsSection">
-            <p>
-              Notificaciones
-              <span className="bell-icon">
-                <BellOutlined />
-              </span>
+            <div className="noti-title">
+            <p>Notificaciones</p>
+            <div className="bell-icon">
+            <BellOutlined />
+            <div
+              className={` ${
+                solicitudes.length ? "noti-status" : "noti-status-none"
+              }`}
+            ></div>
+            </div>
+            </div>
+            
+            <p className="noti-pending-label">
+              Solicitudes pendientes por revisar
             </p>
             <div className="notificationsContainer">
               <button className="scroll-btn left" onClick={scrollLeft}>
                 <LeftOutlined />
               </button>
               <div className="notifications-list" ref={notificationsRef}>
-                <NotificationCard
-                  ticket="Ticket #123"
-                  date="12/09/24"
-                  title="Día libre"
-                  employee="Julián Cortés"
-                />
-                <NotificationCard
-                  ticket="Ticket #124"
-                  date="13/09/24"
-                  title="Día libre"
-                  employee="Ana Pérez"
-                />
-                <NotificationCard
-                  ticket="Ticket #125"
-                  date="14/09/24"
-                  title="Vacaciones"
-                  employee="Carlos López"
-                />
-                <NotificationCard
-                  ticket="Ticket #123"
-                  date="12/09/24"
-                  title="Día libre"
-                  employee="Julián Cortés"
-                />
-                <NotificationCard
-                  ticket="Ticket #124"
-                  date="13/09/24"
-                  title="Día libre"
-                  employee="Ana Pérez"
-                />
-                <NotificationCard
-                  ticket="Ticket #125"
-                  date="14/09/24"
-                  title="Vacaciones"
-                  employee="Carlos López"
-                />
+                {solicitudes.length > 0 ? (
+                  solicitudes.map((solicitud) => {
+                    return (
+                      <NotificationCard key={solicitud._id} data={solicitud} />
+                    );
+                  })
+                ) : (
+                  <div className="no-results-home">
+                    <p>No tiene solicitudes pendientes por revisar</p>
+                  </div>
+                )}
               </div>
               <button className="scroll-btn right" onClick={scrollRight}>
                 <RightOutlined />

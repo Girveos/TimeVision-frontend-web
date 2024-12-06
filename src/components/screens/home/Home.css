@@ -52,7 +52,7 @@
   display: none;
 }
 
-.notificationsSection p {
+.noti-title {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
@@ -60,11 +60,35 @@
   line-height: 100%;
   color: #0d1b34;
   margin: 4vh 3vh 3vh 3vh;
+  display: flex;
 }
 
 .bell-icon {
   margin-left: 10px;
   color: #959292;
+  display: flex;
+}
+
+
+.noti-status {
+  width: 1vh;
+  height: 1vh;
+  background-color: #BB4430;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.noti-status-none {
+  display: none;
+}
+
+.noti-pending-label {
+  font-family: "Poppins";
+  font-style: normal;
+  font-size: 12px;
+  line-height: 100%;
+  color: #8696BB;
+  margin: 0vh 3vh 3vh 3vh;
 }
 
 .notificationsContainer {
@@ -85,6 +109,15 @@
   overflow: hidden;
   width: calc(140px * 3);
   scroll-behavior: smooth;
+}
+
+.no-results-home {
+  color: #8696bb;
+  font-size: 12px;
+  align-self: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .notifications-list::-webkit-scrollbar {

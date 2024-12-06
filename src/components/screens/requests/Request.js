@@ -7,8 +7,11 @@ import Header from "../../organisms/header/Header";
 import { FileSearchOutlined } from "@ant-design/icons";
 import { Tag } from "antd";
 import { getRequest, updateRequestState } from "../../../config/routes";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Request = () => {
+  const navigate = useNavigate();
+
   const [solicitudes, setSolicitudes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,13 +21,15 @@ const Request = () => {
   const [openImageModal, setOpenImageModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
 
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchRequest = async () => {
       try {
         const response = await getRequest();
         if (response.success) {
           const sortedRequests = response.data.sort(
-            (a, b) => new Date(b.start_date) - new Date(a.start_date)
+            (a, b) => new Date(b.create_date) - new Date(a.create_date)
           );
           console.log(sortedRequests);
           setSolicitudes(sortedRequests);
@@ -36,6 +41,20 @@ const Request = () => {
 
     fetchRequest();
   }, []);
+
+  useEffect(() => {
+    if (id && solicitudes.length > 0) {
+      const solicitud = solicitudes.find((sol) => sol._id === id);
+      if (solicitud) {
+        setSelectedSolicitud(solicitud);
+        setOpenModal(true);
+      } else {
+        console.warn("Solicitud no encontrada");
+        navigate("/requests"); 
+      }
+    }
+  }, [id, solicitudes, navigate]);
+  
 
   const pendientes = solicitudes.filter(
     (solicitud) => solicitud.state.toLowerCase() === "pendiente"
@@ -78,6 +97,7 @@ const Request = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedSolicitud(null);
+    navigate("/requests");
   };
 
   const handleAccept = (_id) => {

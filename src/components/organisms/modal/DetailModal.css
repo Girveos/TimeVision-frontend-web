@@ -85,6 +85,95 @@
   border: solid 1px #197bbd;
 }
 
+.modal-box-employee-info{
+  padding: 20px 20px 30px 20px;
+  background-color: white;
+  width: 700px;
+  max-width: 700px;
+  max-height: 80vh;
+  border-radius: 8px;
+  font-family: "Poppins";
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+}
+
+.create-employee-form, .create-employee-img {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-back-btn-div {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 20px;
+  color: #C7C7C7;
+  padding: 0;
+}
+
+.upload-photo-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #777777;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+}
+
+.back-btn:hover {
+  color: #197bbd;
+}
+
+.create-user-img img {
+  background-color: #C7C7C7;
+  width: 35vh;
+  height: 35vh;
+  border-radius: 50%;
+}
+
+.div-label-modal {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: 5px;
+  color: #8696BB;
+  font-size: 12px;
+}
+
+.div-label-modal svg {
+  color: #C7C7C7;
+  font-size: 16px;
+}
+
+.create-employee-img label {
+  font-size: x-large;
+  font-weight: bold;
+  color: #0D1B34;
+}
+
 @media (max-width: 768px) {
   .search-bar {
     justify-content: center;

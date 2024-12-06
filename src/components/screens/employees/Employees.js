@@ -5,10 +5,12 @@ import { Button } from "antd";
 import SearchBar from "../../organisms/searchBar/SearchBar";
 import { getUsers } from "../../../config/routes";
 import { UserAddOutlined } from "@ant-design/icons";
+import { CreateEmployeeModal, EmployeeEditModal } from "../../organisms/modal/DetailModal";
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedEmpleado, setSelectedEmpleado] = useState(null);
 
@@ -19,6 +21,8 @@ const Employees = () => {
         if (response.success) {
           const data = response.data;
           setEmployees(data);
+        } else {
+          setEmployees([]);
         }
       } catch (err) {
         console.error("Error al obtener los usuarios:", err);
@@ -44,12 +48,20 @@ const Employees = () => {
     const apellido = employee.lastname?.toLowerCase() || "";
     const cargo = employee.position?.toLowerCase() || "";
 
-    return nombre.includes(searchTerm) || apellido.includes(searchTerm) || cargo.includes(searchTerm);
+    return (
+      nombre.includes(searchTerm) ||
+      apellido.includes(searchTerm) ||
+      cargo.includes(searchTerm)
+    );
   });
 
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedEmpleado(null);
+  };
+
+  const handleCloseCreateModal = () => {
+    setOpenCreateModal(false);
   };
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -59,7 +71,7 @@ const Employees = () => {
       <Header title={"Empleados"} user={user} />
       <div className="body-employees">
         <div className="actions-bar">
-          <Button className="create-btn">
+          <Button className="create-btn" onClick={() => setOpenCreateModal(true)}>
             <UserAddOutlined /> Crear usuario
           </Button>
           <div className="search-bar-div">
@@ -73,7 +85,19 @@ const Employees = () => {
         <div className="employees-grid">
           {filteredEmpleados.length > 0 ? (
             filteredEmpleados.map((employee) => (
-              <div className="employee-card" key={employee._id}>
+              <div
+                className="employee-card"
+                key={employee._id}
+                onClick={() => {
+                  setSelectedEmpleado(employee);
+                  setOpenModal(true);
+                }}
+              >
+                <div
+                  className={`active-user-circle ${
+                    employee.active ? "bg-active" : "bg-inactive"
+                  }`}
+                ></div>
                 {employee.photo ? (
                   <img
                     src={employee.photo}
@@ -97,6 +121,15 @@ const Employees = () => {
           )}
         </div>
       </div>
+      <EmployeeEditModal
+        open={openModal}
+        onClose={handleCloseModal}
+        data={selectedEmpleado}
+      />
+      <CreateEmployeeModal
+        open={openCreateModal}
+        onClose={handleCloseCreateModal}
+      />
     </div>
   );
 };
