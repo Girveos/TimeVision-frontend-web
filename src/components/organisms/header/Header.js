@@ -7,7 +7,7 @@ const Header = ({ title, user }) => {
   return (
     <div className="header-container">
       <div className="header">
-        <h1>{title}</h1>
+        <label>{title}</label>
       </div>
       <div>
       {user && (

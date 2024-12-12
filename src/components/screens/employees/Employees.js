@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedEmpleado, setSelectedEmpleado] = useState(null);
 
@@ -67,10 +66,6 @@ const Employees = () => {
     setSelectedEmpleado(null);
   };
 
-  const handleCloseCreateModal = () => {
-    setOpenCreateModal(false);
-  };
-
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
@@ -79,7 +74,7 @@ const Employees = () => {
       <div className="body-employees">
         <div className="actions-bar">
           <Button className="go-create-btn" onClick={handleNavigate}>
-            <UserAddOutlined /> Crear usuario
+            <UserAddOutlined /> <span className="create-span">Crear usuario</span>
           </Button>
           <div className="search-bar-div">
             <SearchBar

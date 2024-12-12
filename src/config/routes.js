@@ -290,12 +290,10 @@ export const updateUser = async (id, data) => {
     const form = new FormData();
     form.append("name", data.name);
     form.append("lastname", data.lastname);
-    form.append("type_doc", data.type_doc);
-    form.append("num_doc", data.num_doc);
     form.append("telephone", data.telephone);
     form.append("email", data.email);
-    form.append("password", data.password);
     form.append("position", data.position);
+    form.append("active", data.active);
 
     const response = await api.patch(`/user/update/${id}`, form, {
       headers: {
@@ -328,7 +326,7 @@ export const getShifts = async () => {
 
 
     if (response.status === 200) {
-      return { success: true, data: response.data.data };
+      return { success: true, data: response.data };
     }
   } catch (error) {
     console.error("Error detallado en getShifts:", error);

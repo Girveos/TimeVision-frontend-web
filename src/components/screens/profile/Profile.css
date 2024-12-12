@@ -14,6 +14,12 @@
   font-family: "Poppins";
 }
 
+@media (max-width: 767px) {
+  .body-profile {
+    align-items: center;
+  }
+}
+
 .photo-container {
   display: flex;
   padding: 1vh;
@@ -26,7 +32,13 @@
   color: #000000;
 }
 
-.photo-div{
+@media (max-width: 767px) {
+  .photo-container{
+    font-size: 15px;
+  }
+}
+
+.photo-div {
   display: flex;
   cursor: pointer;
 }
@@ -46,6 +58,13 @@
   padding: 20px;
   gap: 10px;
   width: 100%;
+}
+
+@media (max-width: 767px) {
+  .userInfo-container {
+    flex-direction: column;
+    padding: 0;
+  }
 }
 
 .initials-profile {
@@ -68,6 +87,12 @@
   flex-direction: column;
   width: 50%;
   gap: 10px;
+}
+
+@media (max-width: 767px) {
+  .userInfo-div {
+    width: 100%;
+  }
 }
 
 .userInfo-div .labeldiv {
@@ -94,12 +119,36 @@
   opacity: 0.8;
 }
 
+@media (max-width: 767px) {
+  .subtitle {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subtitle > p {
+    align-self: flex-start;
+    margin-left: 10px;
+  }
+}
+
 .buttons-container {
   display: flex;
   flex-direction: row;
   padding: 20px 0;
   margin: 10px 0;
   gap: 40px;
+}
+
+@media (max-width: 867px) {
+  .buttons-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttons-container Button {
+    width: 200px;
+  }
 }
 
 .changepassword-btn {
@@ -123,7 +172,8 @@
   cursor: pointer;
 }
 
-.changepassword-btn:hover, .logout-btn:hover {
+.changepassword-btn:hover,
+.logout-btn:hover {
   color: #197bbd;
   border: solid 1px #197bbd;
 }

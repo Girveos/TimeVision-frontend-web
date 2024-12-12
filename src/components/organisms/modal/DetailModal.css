@@ -107,12 +107,44 @@
   flex-direction: row;
 }
 
+@media (min-width: 567px) and (max-width: 767px)  {
+  .modal-box-employee-info {
+    width: 500px;
+    max-height: 90vh; 
+    padding: 15px;
+  }
+}
+
+@media (max-width: 567px) {
+  .modal-box-employee-info {
+    width: 90%; 
+    max-height: 90vh; 
+    padding: 10px;
+    gap: 15px;
+    top: 5%; 
+    transform: translate(-50%, 0); 
+    flex-direction: column;
+  }
+
+  .modal-box-employee-info input {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
 .edit-employee-form {
   display: flex;
   flex-direction: column;
   width: 50%;
   align-items: center;
   gap: 10px;
+}
+
+@media (max-width: 567px) {
+  .edit-employee-form {
+    width: 100%;
+  }
 }
 
 .edit-back-btn-div {
@@ -167,20 +199,3 @@
   margin-top: 4vh;
 }
 
-@media (max-width: 768px) {
-  .search-bar {
-    justify-content: center;
-    margin-bottom: 10px;
-    margin-right: 0;
-  }
-
-  .search-bar input {
-    width: 100%;
-    padding: 8px 35px 8px 10px;
-    font-size: 14px;
-  }
-
-  .pagination-container {
-    margin-left: 0;
-  }
-}

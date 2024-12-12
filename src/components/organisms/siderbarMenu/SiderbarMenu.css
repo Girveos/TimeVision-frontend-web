@@ -12,6 +12,13 @@
     box-shadow: 2px 3px 1px rgb(96 96 103 / 20%);
   }
   
+  @media (max-width: 767px) {
+    .sidebar-menu {
+      padding: 0;
+    }
+  
+  }
+
   .sidebar-title {
     font-size: 0.8rem;
     font-weight: bold;

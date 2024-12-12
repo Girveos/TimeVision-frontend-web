@@ -43,6 +43,12 @@ p {
   width: max-content;
 }
 
+@media (max-width: 767px) {
+  .user-info {
+    display: none;
+  }
+}
+
 .user-name {
   font-family: "Poppins";
   font-weight: 600;

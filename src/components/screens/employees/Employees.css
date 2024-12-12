@@ -25,12 +25,24 @@
   width: 50%;
 }
 
+@media (max-width: 767px) {
+  .search-bar-div {
+    width: 100%;
+  }
+}
+
 .go-create-btn {
   background-color: #e4f0ff;
   color: #197bbd;
   border: solid 1px #197bbd;
   font-family: "Poppins";
   font-size: 12px;
+}
+
+@media (max-width: 767px) {
+  .go-create-btn .create-span {
+    display: none;
+  }
 }
 
 .go-create-btn svg {
@@ -44,7 +56,7 @@
   padding: 2vh 4vh;
   box-shadow: 2px 2px 1px rgb(96 96 103 / 20%);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, max-content)); 
+  grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
   gap: 20px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -64,7 +76,7 @@
   align-items: center;
   font-family: "Poppins";
   max-height: 200px;
-  min-height: 200px;
+  min-height: 220px;
   max-width: 100%;
   cursor: pointer;
 }
@@ -95,7 +107,7 @@
 }
 
 .active-user-circle {
-  width:1.5vh;
+  width: 1.5vh;
   height: 1.5vh;
   border-radius: 50%;
   background-color: #197bbd;
@@ -103,9 +115,9 @@
 }
 
 .bg-active {
-  background-color: #2BC255;
+  background-color: #2bc255;
 }
 
 .bg-inactive {
-  background-color: #C22B2B;
+  background-color: #c22b2b;
 }
