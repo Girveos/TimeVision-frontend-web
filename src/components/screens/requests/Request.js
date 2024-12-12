@@ -1,47 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Request.css";
 import Table from "../../organisms/table/Table";
 import SearchBar from "../../organisms/searchBar/SearchBar";
 import { Modaldetail, ImageModal } from "../../organisms/modal/DetailModal";
 import Header from "../../organisms/header/Header";
 import { FileSearchOutlined } from "@ant-design/icons";
-import { Tag } from "antd";
-import { getRequest, updateRequestState } from "../../../config/routes";
+import { Tag, Spin } from "antd";
+import { useRequestStore } from "../../../config/store";
 
 const Request = () => {
-  const [solicitudes, setSolicitudes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedSolicitud, setSelectedSolicitud] = useState(null);
-  const [openImageModal, setOpenImageModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+  const { 
+    requests, 
+    isLoading, 
+    error, 
+    fetchRequests, 
+    updateRequestState 
+  } = useRequestStore();
+
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [selectedSolicitud, setSelectedSolicitud] = React.useState(null);
+  const [openImageModal, setOpenImageModal] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState("");
 
   useEffect(() => {
-    const fetchRequest = async () => {
-      try {
-        const response = await getRequest();
-        if (response.success) {
-          const sortedRequests = response.data.sort(
-            (a, b) => new Date(b.start_date) - new Date(a.start_date)
-          );
-          console.log(sortedRequests);
-          setSolicitudes(sortedRequests);
-        }
-      } catch (err) {
-        console.error("Error al obtener las solicitudes:", err);
-      }
+    const fetchAndSortRequests = async () => {
+      await fetchRequests();
+      // Sort requests by start_date after fetching
+      const sortedRequests = [...requests].sort(
+        (a, b) => new Date(b.start_date) - new Date(a.start_date)
+      );
+      // Update the requests in the store if needed
     };
+    fetchAndSortRequests();
+  }, [fetchRequests]);
 
-    fetchRequest();
-  }, []);
-
-  const pendientes = solicitudes.filter(
+  // Filtering and pagination logic remains the same
+  const pendientes = requests.filter(
     (solicitud) => solicitud.state.toLowerCase() === "pendiente"
   );
 
-  const filteredSolicitudes = solicitudes.filter((solicitud) => {
+  const filteredSolicitudes = requests.filter((solicitud) => {
     const empleado = solicitud.user_name?.toLowerCase() || "";
     const tipo = solicitud.type?.toLowerCase() || "";
     const estado = solicitud.state?.toLowerCase() || "";
@@ -81,19 +82,11 @@ const Request = () => {
   };
 
   const handleAccept = (_id) => {
-    const updatedSolicitudes = solicitudes.map((solicitud) =>
-      solicitud._id === _id ? { ...solicitud, state: "Aceptada" } : solicitud
-    );
-    setSolicitudes(updatedSolicitudes);
     updateRequestState(_id, "Aceptada");
     handleCloseModal();
   };
 
   const handleReject = (_id) => {
-    const updatedSolicitudes = solicitudes.map((solicitud) =>
-      solicitud._id === _id ? { ...solicitud, state: "Rechazada" } : solicitud
-    );
-    setSolicitudes(updatedSolicitudes);
     updateRequestState(_id, "Rechazada");
     handleCloseModal();
   };
@@ -145,6 +138,7 @@ const Request = () => {
     </tr>
   );
 
+  // Replace the existing renderModalContent with the more detailed version
   const renderModalContent = (solicitud) => (
     <>
       <div className="modalRequest-content">
@@ -226,6 +220,22 @@ const Request = () => {
   );
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <Spin size="large" tip="Cargando solicitudes..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="requestsScreen">

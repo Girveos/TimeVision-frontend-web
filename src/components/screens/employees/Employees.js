@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./Employees.css";
 import Header from "../../organisms/header/Header";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import SearchBar from "../../organisms/searchBar/SearchBar";
-import { getUsers } from "../../../config/routes";
 import { UserAddOutlined } from "@ant-design/icons";
+import { useEmployeeStore } from "../../../config/store";
 
 const Employees = () => {
-  const [employees, setEmployees] = useState([]);
+  const { 
+    employees, 
+    isLoading, 
+    error, 
+    fetchEmployees 
+  } = useEmployeeStore();
+  
   const [searchTerm, setSearchTerm] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedEmpleado, setSelectedEmpleado] = useState(null);
 
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const response = await getUsers();
-        if (response.success) {
-          const data = response.data;
-          setEmployees(data);
-        }
-      } catch (err) {
-        console.error("Error al obtener los usuarios:", err);
-      }
-    };
-
     fetchEmployees();
-  }, []);
+  }, [fetchEmployees]);
 
   const getInitials = (name) => {
     if (!name) return "";
@@ -44,15 +36,28 @@ const Employees = () => {
     const apellido = employee.lastname?.toLowerCase() || "";
     const cargo = employee.position?.toLowerCase() || "";
 
-    return nombre.includes(searchTerm) || apellido.includes(searchTerm) || cargo.includes(searchTerm);
+    return nombre.includes(searchTerm) || 
+           apellido.includes(searchTerm) || 
+           cargo.includes(searchTerm);
   });
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    setSelectedEmpleado(null);
-  };
-
   const user = JSON.parse(localStorage.getItem("user"));
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <Spin size="large" tip="Cargando empleados..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="employeesScreen">
