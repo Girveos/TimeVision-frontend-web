@@ -120,29 +120,30 @@ const CalendarScreen = () => {
       const uniqueShifts = new Map();
       assignments.forEach(assignment => {
         if (!uniqueShifts.has(assignment.id_shift) && assignment.shift) {
-          const startDate = new Date(assignment.shift.start_date);
-          const endDate = new Date(assignment.shift.end_date);
+          const startTime = assignment.shift.start_date.split('T')[1].substring(0, 5);
+          const endTime = assignment.shift.end_date.split('T')[1].substring(0, 5);
           
-          if (!isNaN(startDate) && !isNaN(endDate)) {
-            const shift = {
-              id: assignment.id_shift,
-              name: assignment.shift.name_shift || 'Sin nombre',
-              startTime: startDate.toLocaleTimeString('es', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-              }),
-              endTime: endDate.toLocaleTimeString('es', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-              }),
-            };
-            uniqueShifts.set(assignment.id_shift, shift);
-          }
+          const shift = {
+            id: assignment.id_shift,
+            name: assignment.shift.name_shift || 'Sin nombre',
+            startTime: startTime,
+            endTime: endTime,
+            startHour: parseInt(startTime.split(':')[0]),
+            startMinute: parseInt(startTime.split(':')[1])
+          };
+          uniqueShifts.set(assignment.id_shift, shift);
         }
       });
 
+      const sortedShifts = Array.from(uniqueShifts.values()).sort((a, b) => {
+        if (a.startHour === b.startHour) {
+          return a.startMinute - b.startMinute;
+        }
+        return a.startHour - b.startHour;
+      });
+
       Object.keys(scheduleByDay).forEach(day => {
-        scheduleByDay[day].shifts = Array.from(uniqueShifts.values());
+        scheduleByDay[day].shifts = sortedShifts;
       });
 
       assignments.forEach(assignment => {
