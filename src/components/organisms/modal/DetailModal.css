@@ -66,7 +66,7 @@
 }
 
 .reject-btn {
-  background-color: #f1bfba ;
+  background-color: #f1bfba;
   font-family: "Poppins";
   color: #c0392b;
   border: #c0392b;
@@ -85,7 +85,7 @@
   border: solid 1px #197bbd;
 }
 
-.modal-box-employee-info{
+.modal-box-employee-info {
   padding: 20px 20px 30px 20px;
   background-color: white;
   width: 700px;
@@ -107,71 +107,64 @@
   flex-direction: row;
 }
 
-.create-employee-form, .create-employee-img {
+.edit-employee-form {
   display: flex;
   flex-direction: column;
   width: 50%;
-  justify-content: center;
   align-items: center;
   gap: 10px;
 }
 
-.modal-back-btn-div {
+.edit-back-btn-div {
+  align-items: center;
+  justify-content: start;
   display: flex;
   width: 100%;
-  justify-content: left;
 }
 
-.back-btn {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  font-size: 20px;
-  color: #C7C7C7;
-  padding: 0;
-}
-
-.upload-photo-btn {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  color: #777777;
-  font-size: 16px;
+.div-label-modal-active {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
+  flex-direction: row;
+  width: 80%;
+  gap: 5px;
+  color: #8696bb;
+  font-size: 12px;
+  margin: 10px 0;
 }
 
-.back-btn:hover {
-  color: #197bbd;
+.back-btn-edit {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #c7c7c7;
+  padding: 0;
+  font-size: 16px;
 }
 
-.create-user-img img {
-  background-color: #C7C7C7;
-  width: 35vh;
-  height: 35vh;
+.edit-user-img img{
+  background-color: #c7c7c7;
+  width: 20vh;
+  height: 20vh;
   border-radius: 50%;
 }
 
-.div-label-modal {
+.initials-employees{
   display: flex;
-  flex-direction: column;
-  width: 80%;
-  gap: 5px;
-  color: #8696BB;
-  font-size: 12px;
-}
-
-.div-label-modal svg {
-  color: #C7C7C7;
-  font-size: 16px;
-}
-
-.create-employee-img label {
-  font-size: x-large;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
   font-weight: bold;
-  color: #0D1B34;
+  text-transform: uppercase;
+  width: 20vh;
+  height: 20vh;
+  border-radius: 50%;
+  background-color: #358ac4;
+  font-family: "Poppins";
+}
+
+.save-user-info {
+  margin-top: 4vh;
 }
 
 @media (max-width: 768px) {

@@ -5,7 +5,8 @@ import { Button } from "antd";
 import SearchBar from "../../organisms/searchBar/SearchBar";
 import { getUsers } from "../../../config/routes";
 import { UserAddOutlined } from "@ant-design/icons";
-import { CreateEmployeeModal, EmployeeEditModal } from "../../organisms/modal/DetailModal";
+import { EmployeeEditModal } from "../../organisms/modal/DetailModal";
+import { useNavigate } from "react-router-dom";
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
@@ -31,6 +32,12 @@ const Employees = () => {
 
     fetchEmployees();
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => {
+    navigate("/create-user");
+  };
 
   const getInitials = (name) => {
     if (!name) return "";
@@ -71,7 +78,7 @@ const Employees = () => {
       <Header title={"Empleados"} user={user} />
       <div className="body-employees">
         <div className="actions-bar">
-          <Button className="create-btn" onClick={() => setOpenCreateModal(true)}>
+          <Button className="go-create-btn" onClick={handleNavigate}>
             <UserAddOutlined /> Crear usuario
           </Button>
           <div className="search-bar-div">
@@ -125,10 +132,6 @@ const Employees = () => {
         open={openModal}
         onClose={handleCloseModal}
         data={selectedEmpleado}
-      />
-      <CreateEmployeeModal
-        open={openCreateModal}
-        onClose={handleCloseCreateModal}
       />
     </div>
   );

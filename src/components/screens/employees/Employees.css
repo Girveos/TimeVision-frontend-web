@@ -25,7 +25,7 @@
   width: 50%;
 }
 
-.create-btn {
+.go-create-btn {
   background-color: #e4f0ff;
   color: #197bbd;
   border: solid 1px #197bbd;
@@ -33,7 +33,7 @@
   font-size: 12px;
 }
 
-.create-btn svg {
+.go-create-btn svg {
   font-size: 16px;
 }
 

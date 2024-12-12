@@ -139,7 +139,9 @@ const Home = () => {
               Solicitudes pendientes por revisar
             </p>
             <div className="notificationsContainer">
-              <button className="scroll-btn left" onClick={scrollLeft}>
+              <button className={` ${
+                solicitudes.length ? "scroll-btn left" : "scroll-btn-none"
+              }`} onClick={scrollLeft}>
                 <LeftOutlined />
               </button>
               <div className="notifications-list" ref={notificationsRef}>
@@ -155,7 +157,9 @@ const Home = () => {
                   </div>
                 )}
               </div>
-              <button className="scroll-btn right" onClick={scrollRight}>
+              <button className={` ${
+                solicitudes.length ? "scroll-btn right" : "scroll-btn-none"
+              }`} onClick={scrollRight}>
                 <RightOutlined />
               </button>
             </div>

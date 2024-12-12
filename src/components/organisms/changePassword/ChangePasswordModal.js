@@ -23,6 +23,7 @@ const ChangePasswordModal = ({ visible, onClose }) => {
     control,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm({ resolver: zodResolver(changePasswordSchema) });
 
   const onSubmit = handleSubmit(async (data) => {
@@ -33,6 +34,7 @@ const ChangePasswordModal = ({ visible, onClose }) => {
       );
 
       if (response.success) {
+        reset();
         message.success("Contraseña cambiada con éxito.");
         localStorage.removeItem("user");
         localStorage.removeItem("token");

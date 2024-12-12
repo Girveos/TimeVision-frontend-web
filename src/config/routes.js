@@ -248,7 +248,7 @@ export const updatePhoto = async (photo) => {
   }
 };
 
-export const createUser = async (currentPassword, newPassword) => {
+export const createUser = async (name, lastname, type_doc, num_doc, telephone, email, password, position) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -256,20 +256,58 @@ export const createUser = async (currentPassword, newPassword) => {
     }
 
     const form = new FormData();
-    form.append("currentPassword", currentPassword);
-    form.append("newPassword", newPassword);
+    form.append("name", name);
+    form.append("lastname", lastname);
+    form.append("type_doc", type_doc);
+    form.append("num_doc", num_doc);
+    form.append("telephone", telephone);
+    form.append("email", email);
+    form.append("password", password);
+    form.append("position", position);
 
-    const response = await api.post("/user/changepassword", form, {
+    const response = await api.post("/user/createuser", form, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     const data = response.data;
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       return { success: true, message: data };
     }
   } catch (error) {
     return { success: false, message: error.message };
+  }
+};
+
+export const updateUser = async (id, data) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token. Inicia sesión nuevamente.");
+    }
+
+    const form = new FormData();
+    form.append("name", data.name);
+    form.append("lastname", data.lastname);
+    form.append("type_doc", data.type_doc);
+    form.append("num_doc", data.num_doc);
+    form.append("telephone", data.telephone);
+    form.append("email", data.email);
+    form.append("password", data.password);
+    form.append("position", data.position);
+
+    const response = await api.patch(`/user/update/${id}`, form, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.error("Error al obtener el usuario:", error);
+    return { success: false, message: error };
   }
 };

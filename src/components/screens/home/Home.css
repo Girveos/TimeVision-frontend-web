@@ -169,6 +169,10 @@
   right: -2px;
 }
 
+.scroll-btn-none {
+  display: none;
+}
+
 .scroll-btn:hover {
   color: #959292;
 }
