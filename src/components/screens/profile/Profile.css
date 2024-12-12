@@ -37,6 +37,7 @@
   border-radius: 100%;
   background-color: #959292;
   margin-left: 30px;
+  cursor: pointer;
 }
 
 .userInfo-container {
@@ -101,13 +102,28 @@
   gap: 40px;
 }
 
-.buttons-container button {
+.changepassword-btn {
   background-color: #e4f0ff;
   color: #197bbd;
-  border: solid 1px #197bbd;
+  border: none;
   border-radius: 5px;
   font-family: "Poppins";
   width: 40%;
   height: 30px;
   cursor: pointer;
+}
+
+.logout-btn {
+  background-color: #d1d1d1;
+  color: #2c2b2b;
+  border-radius: 5px;
+  font-family: "Poppins";
+  width: 40%;
+  height: 30px;
+  cursor: pointer;
+}
+
+.changepassword-btn:hover, .logout-btn:hover {
+  color: #197bbd;
+  border: solid 1px #197bbd;
 }

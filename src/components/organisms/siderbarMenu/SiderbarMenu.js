@@ -8,7 +8,6 @@ import {
   MessageOutlined,
   ScheduleOutlined,
   SettingOutlined,
-  SolutionOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";

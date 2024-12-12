@@ -15,6 +15,7 @@ import CalendarScreen from "./components/screens/calendar/CalendarScreen";
 import Employees from "./components/screens/employees/Employees";
 import Settings from "./components/screens/settings/Settings";
 import Profile from "./components/screens/profile/Profile";
+import CreateUser from "./components/screens/createUser/CreateUser";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -68,9 +69,10 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route path="home" element={<Home />} />
             <Route path="shifts" element={<Shifts />} />
-            <Route path="requests" element={<Request />} />
+            <Route path="requests/:id?" element={<Request />} />
             <Route path="calendar" element={<CalendarScreen />} />
             <Route path="employees" element={<Employees />} />
+            <Route path="create-user" element={<CreateUser />} />
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
           </Route>
