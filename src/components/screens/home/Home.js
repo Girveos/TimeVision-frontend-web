@@ -9,10 +9,13 @@ import personalDisponiblecon from "../../../assets/personalDisponible1.png";
 import { BellOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { getRequest, getUser } from "../../../config/routes";
 import Header from "../../organisms/header/Header";
+import { Spin } from "antd";
+
 
 const Home = () => {
   const [user, setUser] = useState(null);
   const [solicitudes, setSolicitudes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const notificationsRef = useRef(null);
 
   useEffect(() => {
@@ -38,6 +41,7 @@ const Home = () => {
 
     const fetchRequest = async () => {
       try {
+        setIsLoading(true);
         const response = await getRequest();
         if (response.success) {
           const sortedRequests = response.data
@@ -48,6 +52,8 @@ const Home = () => {
         }
       } catch (err) {
         console.error("Error al obtener las solicitudes:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -145,7 +151,11 @@ const Home = () => {
                 <LeftOutlined />
               </button>
               <div className="notifications-list" ref={notificationsRef}>
-                {solicitudes.length > 0 ? (
+                {isLoading ? (
+                  <div className="loading-container">
+                    <Spin size="large" tip="Cargando solicitudes..." />
+                  </div>
+                ) : solicitudes.length > 0 ? (
                   solicitudes.map((solicitud) => {
                     return (
                       <NotificationCard key={solicitud._id} data={solicitud} />

@@ -176,3 +176,13 @@
 .scroll-btn:hover {
   color: #959292;
 }
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;  
+  height: 50%;
+  min-height: 100px;
+  margin: 0 auto;
+}

@@ -1,37 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./Employees.css";
 import Header from "../../organisms/header/Header";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import SearchBar from "../../organisms/searchBar/SearchBar";
-import { getUsers } from "../../../config/routes";
 import { UserAddOutlined } from "@ant-design/icons";
 import { EmployeeEditModal } from "../../organisms/modal/DetailModal";
 import { useNavigate } from "react-router-dom";
+import { useEmployeeStore } from "../../../config/store";
 
 const Employees = () => {
-  const [employees, setEmployees] = useState([]);
+  const { 
+    employees, 
+    isLoading, 
+    error, 
+    fetchEmployees 
+  } = useEmployeeStore();
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedEmpleado, setSelectedEmpleado] = useState(null);
 
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const response = await getUsers();
-        if (response.success) {
-          const data = response.data;
-          setEmployees(data);
-        } else {
-          setEmployees([]);
-        }
-      } catch (err) {
-        console.error("Error al obtener los usuarios:", err);
-      }
-    };
-
     fetchEmployees();
-  }, []);
+  }, [fetchEmployees]);
 
   const navigate = useNavigate();
 
@@ -72,6 +64,22 @@ const Employees = () => {
   };
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <Spin size="large" tip="Cargando empleados..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="employeesScreen">
