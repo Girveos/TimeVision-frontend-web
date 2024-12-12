@@ -42,7 +42,7 @@ export const getUser = async () => {
 
     if (response.status === 200) {
       return { success: true, data: response.data };
-    } 
+    }
   } catch (error) {
     return { success: false, message: error.message };
   }
@@ -64,11 +64,11 @@ export const updatePassword = async (currentPassword, newPassword) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const data = response.data
+    const data = response.data;
 
     if (response.status === 200) {
       return { success: true, message: data };
-    } 
+    }
   } catch (error) {
     return { success: false, message: error.message };
   }
@@ -87,7 +87,7 @@ export const getRequest = async () => {
       },
     });
 
-    const requests = response.data
+    const requests = response.data;
     const detailedRequest = [];
 
     for (const request of requests) {
@@ -95,16 +95,18 @@ export const getRequest = async () => {
       if (requestDetails.success) {
         detailedRequest.push({
           ...request,
-          user_name: `${requestDetails.data.name} ${requestDetails.data.lastname}`
+          user_name: `${requestDetails.data.name} ${requestDetails.data.lastname}`,
         });
-        
       } else {
-        console.error(`Error obteniendo detalles del turno ${request._id}:`, requestDetails.message);
+        console.error(
+          `Error obteniendo detalles del turno ${request._id}:`,
+          requestDetails.message
+        );
       }
     }
     return { success: true, data: detailedRequest };
   } catch (error) {
-   return { success: false, message: error};
+    return { success: false, message: error };
   }
 };
 
@@ -143,16 +145,16 @@ export const getShifts = async () => {
       },
     });
 
-
+    console.log(response.data);
     if (response.status === 200) {
       return { success: true, data: response.data.data };
     }
   } catch (error) {
     console.error("Error detallado en getShifts:", error);
     console.error("Respuesta del servidor:", error.response?.data);
-    return { 
-      success: false, 
-      error: error.response?.data?.msg || error.message 
+    return {
+      success: false,
+      error: error.response?.data?.msg || error.message,
     };
   }
 };
