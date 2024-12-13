@@ -74,7 +74,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="buttons-container">
-              <button onClick={handleOpenModal} className="logout-button">
+              <button onClick={handleOpenModal} className="logout-button" name="changePasswordButton">
                 Cambiar contraseña
               </button>
               <button onClick={handleLogout} className="logout-button">

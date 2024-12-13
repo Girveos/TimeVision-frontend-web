@@ -42,14 +42,12 @@ function Login({ onLoginSuccess }) {
       onLoginSuccess();
       navigate("/home");
     } else {
-      message.error("No tienes permisos para acceder.");
+      message.error("No tienes permisos para acceder");
       localStorage.removeItem("token"); 
     }
   } catch (error) {
     console.error("Error durante el login:", error);
-    message.error(
-      error.message || "Ocurrió un error. Por favor, inicie sesión nuevamente."
-    );
+    message.error("Usuario o contraseña incorrectos");
   }
 });
 
@@ -73,6 +71,7 @@ function Login({ onLoginSuccess }) {
                   value={value}
                   onChange={onChange}
                   className="input-login"
+                  name="email"
                 />
               )}
               name="user"
@@ -94,6 +93,7 @@ function Login({ onLoginSuccess }) {
                   value={value}
                   onChange={onChange}
                   className="input-login"
+                  name="password"
                   suffix={
                     showPassword ? (
                       <EyeOutlined onClick={() => setShowPassword(false)} />
