@@ -8,23 +8,12 @@ const Table = ({
   headers,
   data,
   currentPage,
-  totalPages,
+  rowsPerPage,
+  totalRows,
   onPageChange,
+  onRowsPerPageChange,
   renderTableRow,
-  showPagination = true,
 }) => {
-  const [page, setPage] = React.useState(2);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   return (
     <div className="table-container">
       <table className="custom-table">
@@ -37,33 +26,19 @@ const Table = ({
         </thead>
         <tbody>{data.map((item) => renderTableRow(item))}</tbody>
       </table>
-
-      {/* {showPagination && (
-        <Stack spacing={2} className="pagination-container">
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={onPageChange}
-            siblingCount={1}
-            boundaryCount={1}
-            hidePrevButton
-            hideNextButton
-            size="small"
-            variant="outlined" 
-            color="primary"
-            shape='rounded'
-          />
-        </Stack>
-      )} */}
-
-      <TablePagination
-        component="div"
-        count={totalPages}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div className="pagination-container">
+        <TablePagination
+          component="div"
+          count={totalRows}
+          page={currentPage - 1}
+          onPageChange={(_, newPage) => onPageChange(newPage + 1)}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={(event) =>
+            onRowsPerPageChange(parseInt(event.target.value, 10))
+          }
+          labelRowsPerPage="Filas por página:"
+        />
+      </div>
     </div>
   );
 };

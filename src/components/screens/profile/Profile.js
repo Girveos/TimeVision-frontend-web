@@ -3,6 +3,8 @@ import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 import Header from "../../organisms/header/Header";
 import ChangePasswordModal from "../../organisms/changePassword/ChangePasswordModal";
+import { updatePhoto } from "../../../config/routes";
+import { Button } from "antd";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -15,16 +17,38 @@ const Profile = () => {
     navigate("/login");
   };
 
-  const updateProfilePhoto = () => {
-    console.log("CAMBIANDO FOTO");
-  };
+  const updateProfilePhoto = async (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      try {
+        const response = await updatePhoto(file);
+  
+        const user = JSON.parse(localStorage.getItem("user"));
+        user.photo = response; 
+        localStorage.setItem("user", JSON.stringify(user));
+  
+        console.log("Foto de perfil actualizada exitosamente");
 
+      } catch (error) {
+        console.error("Error al actualizar la foto de perfil:", error);
+      }
+    } else {
+      console.error("No se seleccionó ningún archivo.");
+    }
+  };
+  
   const handleOpenModal = () => {
     setModalVisible(true);
   };
 
   const handleCloseModal = () => {
     setModalVisible(false);
+  };
+
+  const getInitials = (name) => {
+    if (!name) return '';
+    const nameParts = name.split(' ');
+    return nameParts.map(part => part[0].toUpperCase()).join('');
   };
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -34,12 +58,27 @@ const Profile = () => {
       <Header title={"Perfil"} user={user} />
       <div className="body-profile">
         <div className="photo-container">
-          <div className="photo-div" onClick={updateProfilePhoto}>
-            <img
-              src={user.photo}
-              alt="Profile-image"
-              className="img-profile"
-            ></img>
+          <div className="photo-div">
+          <label htmlFor="profile-photo-upload">
+              {user.photo ? (
+                <img
+                  src={user.photo}
+                  alt="Profile"
+                  className="img-profile"
+                />
+              ) : (
+                <div className="initials-profile">
+                  {getInitials(`${user.name} ${user.lastname}`)}
+                </div>
+              )}
+            </label>
+            <input
+              id="profile-photo-upload"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={updateProfilePhoto}
+            />
           </div>
           <p>Bienvenido {user.name}</p>
         </div>
@@ -76,12 +115,15 @@ const Profile = () => {
             <div className="buttons-container">
               <button onClick={handleOpenModal} className="logout-button" name="changePasswordButton">
                 Cambiar contraseña
-              </button>
-              <button onClick={handleLogout} className="logout-button">
+              </Button>
+              <Button onClick={handleLogout} className="logout-btn">
                 Cerrar sesión
-              </button>
+              </Button>
             </div>
-            <ChangePasswordModal visible={modalVisible} onClose={handleCloseModal}/>
+            <ChangePasswordModal
+              visible={modalVisible}
+              onClose={handleCloseModal}
+            />
           </div>
         </div>
       </div>

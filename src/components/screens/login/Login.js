@@ -27,30 +27,34 @@ function Login({ onLoginSuccess }) {
   const handleForgotPassword = () => {};
 
   const onSubmit = handleSubmit(async (data) => {
-  try {
-    await login(data.user, data.password); 
+    try {
+      await login(data.user, data.pass);
 
-    const token = localStorage.getItem("token"); 
+      const token = localStorage.getItem("token");
 
-    if (!token) {
-      throw new Error("Token no encontrado. Por favor, inicia sesión de nuevo.");
+      if (!token) {
+        throw new Error(
+          "Token no encontrado. Por favor, inicia sesión de nuevo."
+        );
+      }
+
+      const payload = jwtDecode(token);
+
+      if (payload.rol.toLowerCase() === "jefe") {
+        onLoginSuccess();
+        navigate("/home");
+      } else {
+        message.error("No tienes permisos para acceder.");
+        localStorage.removeItem("token");
+      }
+    } catch (error) {
+      console.error("Error durante el login:", error);
+      message.error(
+        error.message ||
+          "Ocurrió un error. Por favor, inicie sesión nuevamente."
+      );
     }
-
-    const payload = jwtDecode(token); 
-
-    if (payload.rol.toLowerCase() === "jefe") {
-      onLoginSuccess();
-      navigate("/home");
-    } else {
-      message.error("No tienes permisos para acceder");
-      localStorage.removeItem("token"); 
-    }
-  } catch (error) {
-    console.error("Error durante el login:", error);
-    message.error("Usuario o contraseña incorrectos");
-  }
-});
-
+  });
 
   return (
     <div className="LoginScreen">
@@ -105,13 +109,13 @@ function Login({ onLoginSuccess }) {
                   }
                 />
               )}
-              name="password"
+              name="pass"
             />
-            {errors.password && (
+            {errors.pass && (
               <div className="errors-div">
                 <ExclamationCircleOutlined />
                 <label className="errors-label">
-                  {errors.password.message}
+                  {errors.pass.message}
                 </label>
               </div>
             )}
@@ -131,7 +135,7 @@ function Login({ onLoginSuccess }) {
         </div>
 
         <div className="LoginButton">
-          <Button type="primary" className="LoginButton" onClick={onSubmit}>
+          <Button type="primary" className="LoginButton" onClick={handleSubmit(onSubmit)}>
             Ingresar
           </Button>
         </div>

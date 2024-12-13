@@ -8,7 +8,6 @@ import {
   MessageOutlined,
   ScheduleOutlined,
   SettingOutlined,
-  SolutionOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -52,14 +51,6 @@ export const SiderbarMenu = () => {
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
               <CalendarOutlined /> Calendario
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/licenses"
-              className={({ isActive }) => (isActive ? "active-link" : "")}
-            >
-              <SolutionOutlined /> Licencias
             </NavLink>
           </li>
           <li>

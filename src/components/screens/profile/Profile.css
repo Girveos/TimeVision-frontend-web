@@ -14,6 +14,12 @@
   font-family: "Poppins";
 }
 
+@media (max-width: 767px) {
+  .body-profile {
+    align-items: center;
+  }
+}
+
 .photo-container {
   display: flex;
   padding: 1vh;
@@ -26,7 +32,13 @@
   color: #000000;
 }
 
-.photo-div{
+@media (max-width: 767px) {
+  .photo-container{
+    font-size: 15px;
+  }
+}
+
+.photo-div {
   display: flex;
   cursor: pointer;
 }
@@ -37,6 +49,7 @@
   border-radius: 100%;
   background-color: #959292;
   margin-left: 30px;
+  cursor: pointer;
 }
 
 .userInfo-container {
@@ -47,11 +60,39 @@
   width: 100%;
 }
 
+@media (max-width: 767px) {
+  .userInfo-container {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+.initials-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 15vh;
+  height: 15vh;
+  border-radius: 50%;
+  background-color: #358ac4;
+  font-family: "Poppins";
+}
+
 .userInfo-div {
   display: flex;
   flex-direction: column;
   width: 50%;
   gap: 10px;
+}
+
+@media (max-width: 767px) {
+  .userInfo-div {
+    width: 100%;
+  }
 }
 
 .userInfo-div .labeldiv {
@@ -78,6 +119,19 @@
   opacity: 0.8;
 }
 
+@media (max-width: 767px) {
+  .subtitle {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subtitle > p {
+    align-self: flex-start;
+    margin-left: 10px;
+  }
+}
+
 .buttons-container {
   display: flex;
   flex-direction: row;
@@ -86,13 +140,40 @@
   gap: 40px;
 }
 
-.buttons-container button {
+@media (max-width: 867px) {
+  .buttons-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttons-container Button {
+    width: 200px;
+  }
+}
+
+.changepassword-btn {
   background-color: #e4f0ff;
   color: #197bbd;
-  border: #197bbd;
+  border: none;
   border-radius: 5px;
   font-family: "Poppins";
   width: 40%;
   height: 30px;
   cursor: pointer;
+}
+
+.logout-btn {
+  background-color: #d1d1d1;
+  color: #2c2b2b;
+  border-radius: 5px;
+  font-family: "Poppins";
+  width: 40%;
+  height: 30px;
+  cursor: pointer;
+}
+
+.changepassword-btn:hover,
+.logout-btn:hover {
+  color: #197bbd;
+  border: solid 1px #197bbd;
 }

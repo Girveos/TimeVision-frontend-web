@@ -1,11 +1,22 @@
-.modal-box {
+.modal-box-request {
   padding: 20px;
   background-color: white;
-  max-width: 300px;
+  width: 400px;
+  max-width: 400px;
+  max-height: 70vh;
   margin: auto;
   border-radius: 8px;
-  overflow: auto;
-  margin-top: 100px;
+  font-family: "Poppins";
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
 .detalle-item {
@@ -35,21 +46,19 @@
   margin-top: 100px;
 }
 
-.full-size-image {
-  max-width: 90%;
-  max-height: 90%;
-  cursor: pointer;
-}
-
 .modal-buttons {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+  width: 100%;
 }
 
 .accept-btn {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #d5f1e0;
+  color: #34a838;
+  border: #34a838;
+  font-family: "Poppins";
+  width: 40%;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -57,28 +66,136 @@
 }
 
 .reject-btn {
-  background-color: #F44336;
-  color: white;
+  background-color: #f1bfba;
+  font-family: "Poppins";
+  color: #c0392b;
+  border: #c0392b;
+  width: 40%;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .search-bar {
-    justify-content: center;
-    margin-bottom: 10px;
-    margin-right: 0;
-  }
+.accept-btn:hover {
+  border: solid 1px #197bbd;
+}
 
-  .search-bar input {
-    width: 100%;
-    padding: 8px 35px 8px 10px;
-    font-size: 14px;
-  }
+.reject-btn:hover {
+  border: solid 1px #197bbd;
+}
 
-  .pagination-container {
-    margin-left: 0;
+.modal-box-employee-info {
+  padding: 20px 20px 30px 20px;
+  background-color: white;
+  width: 700px;
+  max-width: 700px;
+  max-height: 80vh;
+  border-radius: 8px;
+  font-family: "Poppins";
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+}
+
+@media (min-width: 567px) and (max-width: 767px)  {
+  .modal-box-employee-info {
+    width: 500px;
+    max-height: 90vh; 
+    padding: 15px;
   }
 }
+
+@media (max-width: 567px) {
+  .modal-box-employee-info {
+    width: 90%; 
+    max-height: 90vh; 
+    padding: 10px;
+    gap: 15px;
+    top: 5%; 
+    transform: translate(-50%, 0); 
+    flex-direction: column;
+  }
+
+  .modal-box-employee-info input {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+.edit-employee-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 567px) {
+  .edit-employee-form {
+    width: 100%;
+  }
+}
+
+.edit-back-btn-div {
+  align-items: center;
+  justify-content: start;
+  display: flex;
+  width: 100%;
+}
+
+.div-label-modal-active {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  gap: 5px;
+  color: #8696bb;
+  font-size: 12px;
+  margin: 10px 0;
+}
+
+.back-btn-edit {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #c7c7c7;
+  padding: 0;
+  font-size: 16px;
+}
+
+.edit-user-img img{
+  background-color: #c7c7c7;
+  width: 20vh;
+  height: 20vh;
+  border-radius: 50%;
+}
+
+.initials-employees{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 20vh;
+  height: 20vh;
+  border-radius: 50%;
+  background-color: #358ac4;
+  font-family: "Poppins";
+}
+
+.save-user-info {
+  margin-top: 4vh;
+}
+
