@@ -49,10 +49,7 @@ function Login({ onLoginSuccess }) {
       }
     } catch (error) {
       console.error("Error durante el login:", error);
-      message.error(
-        error.message ||
-          "Ocurrió un error. Por favor, inicie sesión nuevamente."
-      );
+      message.error("Usuario o contraseña incorrectos");
     }
   });
 

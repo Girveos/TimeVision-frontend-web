@@ -72,7 +72,7 @@ const CreateUser = () => {
         reset();
         message.success("Nuevo usuario creado con éxito.");
         navigate("/employees");
-      } else {       
+      } else {
         message.error("Error al crear el usuario.");
       }
     } catch (error) {
@@ -87,7 +87,6 @@ const CreateUser = () => {
       <Header title={"Nuevo usuario"} user={user} />
       <div className="body-createUser">
         <div className="create-back-btn-div">
-          {" "}
           <Button className="back-btn" onClick={handleNavigate}>
             <LeftOutlined /> Volver a empleados
           </Button>
@@ -103,6 +102,7 @@ const CreateUser = () => {
                     type={"text"}
                     value={value}
                     onChange={onChange}
+                    name="name"
                     prefix={<ModeEditOutlineOutlinedIcon />}
                   />
                 )}
@@ -124,6 +124,7 @@ const CreateUser = () => {
                     type={"text"}
                     value={value}
                     onChange={onChange}
+                    name="lastname"
                     prefix={<ModeEditOutlineOutlinedIcon />}
                   />
                 )}
@@ -140,7 +141,6 @@ const CreateUser = () => {
             </div>
 
             <div className="div-label-modal">
-              {" "}
               <label>Tipo de documento</label>
               <Controller
                 control={control}
@@ -151,9 +151,8 @@ const CreateUser = () => {
                       onClick: (e) => handleTypeDocChange(e.key, onChange),
                     }}
                   >
-                    <Button className="dropdown-btn">
-                      {value || "Seleccionar tipo de documento"}{" "}
-                      <DownOutlined />
+                    <Button className="dropdown-btn" name="type_doc">
+                      {value || "Seleccionar tipo de documento"} <DownOutlined />
                     </Button>
                   </Dropdown>
                 )}
@@ -177,6 +176,7 @@ const CreateUser = () => {
                     type={"text"}
                     value={value}
                     onChange={onChange}
+                    name="num_doc"
                     prefix={<ModeEditOutlineOutlinedIcon />}
                   />
                 )}
@@ -200,6 +200,7 @@ const CreateUser = () => {
                     type={"text"}
                     value={value}
                     onChange={onChange}
+                    name="telephone"
                     prefix={<ModeEditOutlineOutlinedIcon />}
                   />
                 )}
@@ -225,6 +226,7 @@ const CreateUser = () => {
                     type={"text"}
                     value={value}
                     onChange={onChange}
+                    name="email"
                     autoComplete="off"
                     prefix={<EmailOutlinedIcon />}
                   />
@@ -234,7 +236,9 @@ const CreateUser = () => {
               {errors.email && (
                 <div className="errors-div">
                   <ExclamationCircleOutlined />
-                  <label className="errors-label">{errors.email.message}</label>
+                  <label className="errors-label">
+                    {errors.email.message}
+                  </label>
                 </div>
               )}
             </div>
@@ -247,17 +251,9 @@ const CreateUser = () => {
                     type={"password"}
                     value={value}
                     onChange={onChange}
+                    name="password"
                     autoComplete="new-password"
                     prefix={<PasswordOutlinedIcon />}
-                    /* suffix={
-                    showPassword ? (
-                      <EyeOutlined onClick={() => setShowPassword(false)} />
-                    ) : (
-                      <EyeInvisibleOutlined
-                        onClick={() => setShowPassword(true)}
-                      />
-                    )
-                  } */
                   />
                 )}
                 name="password"
@@ -280,6 +276,7 @@ const CreateUser = () => {
                     type={"text"}
                     value={user.department}
                     onChange={onChange}
+                    name="department"
                     disabled={true}
                     prefix={<ApartmentOutlinedIcon />}
                   />
@@ -304,6 +301,7 @@ const CreateUser = () => {
                     type={"text"}
                     value={value}
                     onChange={onChange}
+                    name="position"
                     prefix={<ModeEditOutlineOutlinedIcon />}
                   />
                 )}
@@ -320,20 +318,8 @@ const CreateUser = () => {
             </div>
           </div>
         </div>
-        {/* <div className="create-employee-img">
-          <label>Usuario</label>
-          <div className="create-user-img">
-            <img src={img} alt="Foto Perfil" />
-          </div>
-          <Button className="upload-photo-btn">
-            {" "}
-            <CloudUploadOutlined /> Subir foto
-          </Button>
-          <Button className="save-btn save-user-info">Guardar</Button>
-        </div> */}
         <div className="create-btn-div">
           <Button className="create-btn" onClick={handleSubmit(onSubmit)}>
-            {" "}
             <UserAddOutlined /> Crear usuario
           </Button>
         </div>

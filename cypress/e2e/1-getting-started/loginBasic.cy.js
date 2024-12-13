@@ -11,7 +11,7 @@ describe('Iniciar sesión', () => {
   
     it('Debería iniciar sesión con credenciales válidas', () => {
       // Completa el formulario de inicio de sesión
-      cy.get('input[name="email"]').type('julian@gmail.com'); // Cambia esto por un correo válido
+      cy.get('input[name="email"]').type('jero713@hotmail.com'); // Cambia esto por un correo válido
       cy.get('input[name="password"]').type('Pepe123!'); // Cambia esto por una contraseña válida
       cy.get('button').contains('Ingresar').click(); // Asegúrate de que el texto del botón sea correcto
   
