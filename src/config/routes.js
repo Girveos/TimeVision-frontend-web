@@ -211,3 +211,55 @@ export const getUsers = async () => {
     return { success: false, message: error.message };
   }
 };
+
+export const requestPasswordReset = async (email) => {
+  try {
+    const response = await api.post("/forgot-password", { email });
+    return { 
+      success: true, 
+      message: response.data.msg 
+    };
+  } catch (error) {
+    return { 
+      success: false, 
+      message: error.response?.data?.msg || "Error al solicitar el código" 
+    };
+  }
+};
+
+export const verifyResetCode = async (email, code) => {
+  try {
+    const response = await api.post("/reset-password/verify", { 
+      email, 
+      code 
+    });
+    return { 
+      success: true, 
+      message: response.data.msg 
+    };
+  } catch (error) {
+    return { 
+      success: false, 
+      message: error.response?.data?.msg || "Error al verificar el código" 
+    };
+  }
+};
+
+export const resetPassword = async (email, token, newPassword) => {
+  try {
+    const response = await api.post("/reset-password", {
+      email,
+      token,
+      newPassword
+    });
+    return { 
+      success: true, 
+      message: response.data.msg 
+    };
+  } catch (error) {
+    return { 
+      success: false, 
+      message: error.response?.data?.msg || "Error al cambiar la contraseña" 
+    };
+  }
+};

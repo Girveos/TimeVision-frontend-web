@@ -10,13 +10,18 @@ import { BellOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { getRequest, getUser } from "../../../config/routes";
 import Header from "../../organisms/header/Header";
 import { Spin } from "antd";
+import { useRequestStore } from "../../../config/store";
 
 
 const Home = () => {
   const [user, setUser] = useState(null);
-  const [solicitudes, setSolicitudes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const notificationsRef = useRef(null);
+
+  const {
+    isLoading,
+    fetchRequests,
+    getPendingRequests
+  } = useRequestStore();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -38,28 +43,11 @@ const Home = () => {
         console.error("Error al obtener el usuario:", err);
       }
     };
-
-    const fetchRequest = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getRequest();
-        if (response.success) {
-          const sortedRequests = response.data
-            .filter((request) => request.state.toLowerCase() === "pendiente")
-            .sort((a, b) => new Date(a.create_date) - new Date(b.create_date));
-          console.log(sortedRequests);
-          setSolicitudes(sortedRequests);
-        }
-      } catch (err) {
-        console.error("Error al obtener las solicitudes:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchUserData();
-    fetchRequest();
-  }, []);
+    fetchRequests();
+  }, [fetchRequests]);
+
+  const solicitudes = getPendingRequests();
 
   const scrollLeft = () => {
     if (notificationsRef.current) {

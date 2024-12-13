@@ -14,7 +14,8 @@ const Request = () => {
     isLoading, 
     error, 
     fetchRequests, 
-    updateRequestState 
+    updateRequestState,
+    getPendingRequests
   } = useRequestStore();
 
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -26,21 +27,11 @@ const Request = () => {
   const [selectedImage, setSelectedImage] = React.useState("");
 
   useEffect(() => {
-    const fetchAndSortRequests = async () => {
-      await fetchRequests();
-      // Sort requests by start_date after fetching
-      const sortedRequests = [...requests].sort(
-        (a, b) => new Date(b.start_date) - new Date(a.start_date)
-      );
-      // Update the requests in the store if needed
-    };
-    fetchAndSortRequests();
+    fetchRequests();
   }, [fetchRequests]);
 
   // Filtering and pagination logic remains the same
-  const pendientes = requests.filter(
-    (solicitud) => solicitud.state.toLowerCase() === "pendiente"
-  );
+  const pendientes = getPendingRequests();
 
   const filteredSolicitudes = requests.filter((solicitud) => {
     const empleado = solicitud.user_name?.toLowerCase() || "";
