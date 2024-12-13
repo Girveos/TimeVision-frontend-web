@@ -10,7 +10,6 @@ import { BellOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import {
   getHomeStatistics,
   getNews,
-  getRequest,
   getUser,
 } from "../../../config/routes";
 import Header from "../../organisms/header/Header";
@@ -54,7 +53,6 @@ const Home = () => {
       try {
         const response = await getHomeStatistics();
         if (response.success) {
-          console.log("STATISTICS", response.data);
           setStatistics(response.data);
         }
       } catch (err) {
@@ -66,7 +64,6 @@ const Home = () => {
       try {
         const response = await getNews();
         if (response.success) {
-          console.log("Novedades", response.data);
           setNews(response.data);
         }
       } catch (err) {

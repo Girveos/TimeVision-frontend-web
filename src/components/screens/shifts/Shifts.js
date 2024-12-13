@@ -13,7 +13,7 @@ export default function Shifts() {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const { employees, isLoading, error, fetchEmployees } = useEmployeeStore();
+  const { employees, fetchEmployees } = useEmployeeStore();
 
   const [formData, setFormData] = useState({
     startDate: null,
@@ -83,15 +83,13 @@ export default function Shifts() {
       employeeIds: selectedUsers,
     };
 
-    console.log("TURNOS", payload);
-
-    const response = await shiftsAssigments(payload);
+    const response = await shiftsAssigments(payload.startDate, payload.endDate, payload.employeeIds);
 
     if (response.success) {
       message.success("Turnos asignados con éxito");
       navigate("/calendar")
     }else {
-      message.error("Error al asignar los turnos. Intent de nuevo.")
+      message.error("Error al asignar los turnos. Intente de nuevo.")
     }
     } catch (error) {
       console.error("Error al enviar datos para la asignación:", error);
@@ -118,10 +116,6 @@ export default function Shifts() {
       <td>{employee.position}</td>
     </tr>
   );
-
-  const onChange = (checkedValues) => {
-    console.log("checked = ", checkedValues);
-  };
 
   const user = JSON.parse(localStorage.getItem("user"));
 
