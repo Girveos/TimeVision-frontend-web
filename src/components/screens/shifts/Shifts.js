@@ -16,12 +16,12 @@ export default function Shifts() {
   const { employees, isLoading, error, fetchEmployees } = useEmployeeStore();
 
   const [formData, setFormData] = useState({
-    start: null,
-    end: null,
+    startDate: null,
+    endDate: null,
     restriction1: false,
     restriction2: false,
     restriction3: false,
-    employees: [],
+    employeeIds: [],
   });
 
   const handleChange = (field, value) => {
@@ -73,14 +73,14 @@ export default function Shifts() {
 
   const onSubmit = async () => {
     try {
-      const formattedStart = new Date(formData.start).toISOString();
-    const formattedEnd = new Date(formData.end).toISOString();
+      const formattedStart = new Date(formData.startDate).toISOString();
+    const formattedEnd = new Date(formData.endDate).toISOString();
 
     const payload = {
       ...formData,
-      start: formattedStart,
-      end: formattedEnd,
-      employees: selectedUsers,
+      startDate: formattedStart,
+      endDate: formattedEnd,
+      employeeIds: selectedUsers,
     };
 
     console.log("TURNOS", payload);
@@ -138,7 +138,7 @@ export default function Shifts() {
                 <div className="date-selector">
                   <Input
                     type="date"
-                    onChange={(e) => handleChange("start", e.target.value)}
+                    onChange={(e) => handleChange("startDate", e.target.value)}
                     placeholder="DD/MM/AAAA"
                   />
                 </div>
@@ -149,7 +149,7 @@ export default function Shifts() {
                   <div className="date-selector">
                     <Input
                       type="date"
-                      onChange={(e) => handleChange("end", e.target.value)}
+                      onChange={(e) => handleChange("endDate", e.target.value)}
                       placeholder="DD/MM/AAAA"
                     />
                   </div>

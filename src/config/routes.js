@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001/api/v1",
+  baseURL: "https://backend-timevision.onrender.com/api/v1",
   timeout: 10000,
 });
 
@@ -426,12 +426,12 @@ export const shiftsAssigments = async (data) => {
     }
 
     const form = new FormData();
-    form.append("start", data.start);
-    form.append("end", data.end);
+    form.append("startDate", data.startDate);
+    form.append("endDate", data.end);
     form.append("restriction1", data.restriction1);
     form.append("restriction2", data.restriction2);
     form.append("restriction3", data.restriction3);
-    form.append("employees", data.employees);
+    form.append("employeeIds", data.employeeIds);
 
     const response = await api.post("/assigment/automaticassignment", form, {
       headers: {
