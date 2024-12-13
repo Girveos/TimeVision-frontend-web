@@ -68,7 +68,7 @@ export const SiderbarMenu = () => {
             >
               <UserOutlined /> Perfil
             </NavLink>
-          </li>
+          </li>{/* 
           <li>
             <NavLink
               to="/settings"
@@ -76,7 +76,7 @@ export const SiderbarMenu = () => {
             >
               <SettingOutlined /> Configuración
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>

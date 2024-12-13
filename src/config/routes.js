@@ -310,7 +310,6 @@ export const updateUser = async (id, data) => {
   }
 };
 
-
 export const getShifts = async () => {
   try {
     const token = await localStorage.getItem("token");
@@ -324,16 +323,16 @@ export const getShifts = async () => {
       },
     });
 
-
+    console.log(response.data);
     if (response.status === 200) {
-      return { success: true, data: response.data };
+      return { success: true, data: response.data.data };
     }
   } catch (error) {
     console.error("Error detallado en getShifts:", error);
     console.error("Respuesta del servidor:", error.response?.data);
-    return { 
-      success: false, 
-      error: error.response?.data?.msg || error.message 
+    return {
+      success: false,
+      error: error.response?.data?.msg || error.message,
     };
   }
 };
@@ -357,5 +356,94 @@ export const getShiftById = async (id) => {
   } catch (error) {
     console.error("Error al obtener el turno:", error);
     return { success: false, error: error.message };
+  }
+};
+
+export const getHomeStatistics = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token. Inicia sesión nuevamente.");
+    }
+
+    const response = await api.get("/user/statususers", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      const data = response.data;
+      console.log(data)
+      return { success: true, data: data };
+    }
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+};
+
+export const getNews = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token. Inicia sesión nuevamente.");
+    }
+
+    const response = await api.get("/request/TenUpdates", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const requests = response.data;
+    const detailedRequest = [];
+
+    for (const request of requests) {
+      const requestDetails = await getUserById(request.id_user);
+      if (requestDetails.success) {
+        detailedRequest.push({
+          ...request,
+          user_name: `${requestDetails.data.name} ${requestDetails.data.lastname}`,
+        });
+      } else {
+        console.error(
+          `Error obteniendo detalles del turno ${request._id}:`,
+          requestDetails.message
+        );
+      }
+    }
+    return { success: true, data: detailedRequest };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+};
+
+export const shiftsAssigments = async (data) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No se encontró el token. Inicia sesión nuevamente.");
+    }
+
+    const form = new FormData();
+    form.append("start", data.start);
+    form.append("end", data.end);
+    form.append("restriction1", data.restriction1);
+    form.append("restriction2", data.restriction2);
+    form.append("restriction3", data.restriction3);
+    form.append("employees", data.employees);
+
+    const response = await api.post("/assigment/automaticassignment", form, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = response.data;
+
+    if (response.status === 201) {
+      return { success: true, message: data };
+    }
+  } catch (error) {
+    return { success: false, message: error.message };
   }
 };

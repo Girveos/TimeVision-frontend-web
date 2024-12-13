@@ -7,14 +7,20 @@ import personalEnTurnoIcon from "../../../assets/personalEnTurno1.png";
 import personalEnLicenciaIcon from "../../../assets/personalEnLicencia1.png";
 import personalDisponiblecon from "../../../assets/personalDisponible1.png";
 import { BellOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { getRequest, getUser } from "../../../config/routes";
+import {
+  getHomeStatistics,
+  getNews,
+  getRequest,
+  getUser,
+} from "../../../config/routes";
 import Header from "../../organisms/header/Header";
 import { Spin } from "antd";
-
 
 const Home = () => {
   const [user, setUser] = useState(null);
   const [solicitudes, setSolicitudes] = useState([]);
+  const [statistics, setStatistics] = useState(null);
+  const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const notificationsRef = useRef(null);
 
@@ -57,8 +63,38 @@ const Home = () => {
       }
     };
 
+    const fetchStatistics = async () => {
+      try {
+        const response = await getHomeStatistics();
+        if (response.success) {
+          console.log("STATISTICS", response.data);
+          setStatistics(response.data);
+        }
+      } catch (err) {
+        console.error("Error al obtener las estadisticas:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const fetchNews = async () => {
+      try {
+        const response = await getNews();
+        if (response.success) {
+          console.log("Novedades", response.data);
+          setNews(response.data);
+        }
+      } catch (err) {
+        console.error("Error al obtener las novedades:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchUserData();
+    fetchNews();
     fetchRequest();
+    fetchStatistics();
   }, []);
 
   const scrollLeft = () => {
@@ -90,64 +126,46 @@ const Home = () => {
             <p>Novedades</p>
           </div>
           <div className="newscard-scroll">
-            <NewsCard
-              title="Cambio de turno"
-              date="12/09/2024"
-              message="Cambio de turno aprobado para el 15 de Septiembre"
-              employee="Juan Perez"
-              width="30vw"
-            />
-            <NewsCard
-              title="Cambio de turno"
-              date="12/09/2024"
-              message="Cambio de turno aprobado para el 15 de Septiembre"
-              employee="Juan Perez"
-              width="30vw"
-            />
-            <NewsCard
-              title="Cambio de turno"
-              date="12/09/2024"
-              message="Cambio de turno aprobado para el 15 de Septiembre"
-              employee="Juan Perez"
-              width="30vw"
-            />
-            <NewsCard
-              title="Cambio de turno"
-              date="12/09/2024"
-              message="Cambio de turno aprobado para el 15 de Septiembre"
-              employee="Juan Perez"
-              width="30vw"
-            />
-            <NewsCard
-              title="Cambio de turno"
-              date="12/09/2024"
-              message="Cambio de turno aprobado para el 15 de Septiembre"
-              employee="Juan Perez"
-              width="30vw"
-            />
+            {news.length > 0 &&
+              news.map((newsItem) => {
+                return (
+                  <NewsCard
+                    key={newsItem._id} 
+                    title={newsItem.title}
+                    type={newsItem.type}
+                    date={newsItem.create_date}
+                    message={newsItem.description}
+                    employee={newsItem.user_name}
+                    width="30vw"
+                  />
+                );
+              })}
           </div>
         </div>
         <div className="staticsNotification">
           <div className="notificationsSection">
             <div className="noti-title">
-            <p>Notificaciones</p>
-            <div className="bell-icon">
-            <BellOutlined />
-            <div
-              className={` ${
-                solicitudes.length ? "noti-status" : "noti-status-none"
-              }`}
-            ></div>
+              <p>Notificaciones</p>
+              <div className="bell-icon">
+                <BellOutlined />
+                <div
+                  className={` ${
+                    solicitudes.length ? "noti-status" : "noti-status-none"
+                  }`}
+                ></div>
+              </div>
             </div>
-            </div>
-            
+
             <p className="noti-pending-label">
               Solicitudes pendientes por revisar
             </p>
             <div className="notificationsContainer">
-              <button className={` ${
-                solicitudes.length ? "scroll-btn left" : "scroll-btn-none"
-              }`} onClick={scrollLeft}>
+              <button
+                className={` ${
+                  solicitudes.length ? "scroll-btn left" : "scroll-btn-none"
+                }`}
+                onClick={scrollLeft}
+              >
                 <LeftOutlined />
               </button>
               <div className="notifications-list" ref={notificationsRef}>
@@ -167,9 +185,12 @@ const Home = () => {
                   </div>
                 )}
               </div>
-              <button className={` ${
-                solicitudes.length ? "scroll-btn right" : "scroll-btn-none"
-              }`} onClick={scrollRight}>
+              <button
+                className={` ${
+                  solicitudes.length ? "scroll-btn right" : "scroll-btn-none"
+                }`}
+                onClick={scrollRight}
+              >
                 <RightOutlined />
               </button>
             </div>
@@ -180,21 +201,21 @@ const Home = () => {
               label="Personal en turno"
               color="#E4F0FF"
               colorB="#70A6E8"
-              percentage={40}
+              percentage={statistics?.percentageWorking}
               iconImage={personalEnTurnoIcon}
             />
             <StatisticsCard
               label="Personal en licencia"
               color="#FFEADA"
               colorB="#F79042"
-              percentage={50}
+              percentage={statistics?.percentageOnLeave}
               iconImage={personalEnLicenciaIcon}
             />
             <StatisticsCard
               label="Personal disponible"
               color="#DDF9E4"
               colorB="#2BC255"
-              percentage={10}
+              percentage={statistics?.percentageNotWorking}
               iconImage={personalDisponiblecon}
             />
           </div>

@@ -7,6 +7,7 @@ import Header from "../../organisms/header/Header";
 import { FileSearchOutlined } from "@ant-design/icons";
 import { Tag, Spin } from "antd";
 import { useRequestStore } from "../../../config/store";
+import { Navigate, useParams } from "react-router-dom";
 
 const Request = () => {
   const { 
@@ -78,7 +79,7 @@ const Request = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedSolicitud(null);
-    navigate("/requests");
+    Navigate("/requests");
   };
 
   const handleAccept = (_id) => {

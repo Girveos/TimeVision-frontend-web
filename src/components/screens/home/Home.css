@@ -28,6 +28,13 @@
   width: 95%;
 }
 
+@media (max-width: 767px) {
+  .bodyContent {
+    flex-direction: column;
+    width: 95%;
+  }
+}
+
 .newsNotification {
   display: flex;
   flex-direction: column;
@@ -38,6 +45,13 @@
   border-radius: 28px;
   padding: 15px 10px;
   height: fit-content;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .newsNotification {
+    margin: 0;
+  }
 }
 
 .newscard-scroll {
@@ -109,6 +123,12 @@
   overflow: hidden;
   width: calc(140px * 3);
   scroll-behavior: smooth;
+}
+
+@media (max-width: 767px) {
+  .notifications-list {
+    width: calc(120px * 2);
+  }
 }
 
 .no-results-home {

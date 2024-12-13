@@ -14,39 +14,95 @@
   font-family: "Poppins";
 }
 
-.filters {
+.section-filter {
   display: flex;
-  gap: 80px;
-  margin-left: 20px;
+  justify-content: space-around;
+  gap: 20px
 }
 
-.filter-section {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  flex: 1;
-
-  min-width: 110px;
+.conditions {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2vh;
+  padding: 10px 25px;
+  width: fit-content;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.filter-section h2 {
-  font-size: 20px;
-  color: #111827;
-  margin-bottom: 10px;
+.conditions h2 {
+  font-size: 18px;
+  text-align: center;
+  color: #6f6c6c;
 }
+
+.checkbox-group {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+
+@media (max-width: 767px) {
+  .checkbox-group {
+    flex-direction: column;
+  }
+}
+
+.checkbox-group div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkbox-group label {
+  margin-bottom: 8px;
+  color: #676161;
+  font-size: 14px;
+  font-family: "Poppins";
+}
+
+.date-range-assingment {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2vh;
+  padding: 10px;
+  width: 44%;
+  height: auto;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.date-range-assingment h2 {
+  font-size: 18px;
+  text-align: center;
+  color: #6f6c6c;
+}
+
 
 .date-picker {
   display: flex;
   gap: 10px;
   padding: 5px;
-  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .date-picker {
+    flex-direction: column;
+  }
 }
 
 .date-range,
 .range-date {
   text-align: center;
-  padding: 11px 10px;
+  padding: 15px 10px;
+  display: grid;
+}
+
+.range-date-subtitle {
+  color: #a09d9d;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
 .range-options {
@@ -68,69 +124,35 @@
   background-color: #3391d0;
   color: #fff;
 }
-.checkbox-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+
+.Title-Seccion {
+  font-size: 16px;
+  font-weight: 200;
+  color: #6f6c6c;
+  margin-top: 3vh;
 }
 
-.checkbox-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: black;
-  font-size: 16.75px;
-  font-family: "Quicksand", sans-serif;
-  width: calc(50% - 0.5rem);
+.table-section {
+  margin-bottom: 3vh;
 }
 
-.user-selection h2 {
-  font-size: 20px;
-  color: black;
+.day {
+  font-family: "Poppins";
 }
 
-.table {
-  width: 80%;
-  border-collapse: collapse;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-left: 86px;
-  margin-right: 10px;
-  margin-top: 20px;
+.week {
+  font-family: "Poppins";
 }
 
-/* thead {
-  background-color: #f3f4f6;
-  color: black;
-  font-size: 16.75px;
-  font-family: "Quicksand", sans-serif;
+.month {
+  font-family: "Poppins";
 }
-
-td,
-th {
-  padding: 10px;
-  text-align: left;
-  font-family: "Quicksand", sans-serif;
-  font-size: 16.75px;
-}
-
-tbody tr {
-  border-bottom: 1px solid #e5e7eb;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1px;
-}
-
-tbody tr:hover {
-  background-color: #3391d034;
-}
-
-tbody tr td:first-child {
-  text-align: center;
-} */
 
 .user-selection {
-  max-height: 200px;
+  max-height: 230px;
   overflow-y: auto;
+  scrollbar-width: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
 }
 
 .user-selection::-webkit-scrollbar {
@@ -157,20 +179,20 @@ tbody tr td:first-child {
   align-items: center;
 }
 .assign-button {
-  margin-top: 5px;
-  padding: 10px 10px;
-  font-size: 16px;
-  color: white;
-  background-color: #3391d0;
+  margin-top: 3vh;
+  background-color: #e4f0ff !important;
+  color: #197bbd !important;
   border: none;
   border-radius: 5px;
+  font-family: "Poppins";
+  width: 40%;
+  height: 30px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.assign-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.assign-button:hover {
+  color: #197bbd;
+  border: solid 1px #197bbd;
 }
 
 @media (max-width: 600px) {
@@ -193,12 +215,5 @@ tbody tr td:first-child {
     font-size: 0.9rem;
   }
 
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    font-size: 12px;
-  }
+
 }

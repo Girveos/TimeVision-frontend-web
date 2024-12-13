@@ -2,6 +2,9 @@ import React from 'react';
 import './StatisticsCard.css';
 
 const StatisticsCard = ({ label, color, colorB, percentage, iconImage }) => {
+
+  const integerPercentage = Math.floor(parseFloat(percentage));
+  console.log("PORCENTAJE", integerPercentage)
   return (
     <div className='statisticsCard'>
       <div
@@ -16,10 +19,10 @@ const StatisticsCard = ({ label, color, colorB, percentage, iconImage }) => {
       <div className='statContent'>
         <p>{label}</p>
         <div className='progressBar'>
-          <div className='progress' style={{ width: `${percentage}%`, backgroundColor: colorB }} />
+          <div className='progress' style={{ width: `${integerPercentage}%`, backgroundColor: colorB }} />
         </div>
       </div>
-      <span>{percentage}%</span>
+      <span>{integerPercentage}%</span>
     </div>
   );
 };

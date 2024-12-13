@@ -127,7 +127,7 @@ const DayDetail = ({
                     {shiftEmployees.map(employee => (
                       <div
                         key={employee.id}
-                        className="employee-card"
+                        className="employee-calendar-card"
                         draggable
                         onDragStart={(e) => {
                           e.stopPropagation();

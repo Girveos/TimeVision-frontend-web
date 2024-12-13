@@ -74,7 +74,7 @@
   overflow-y: auto;
 }
 
-.employee-card {
+.employee-calendar-card {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -221,4 +221,4 @@
 .shifts-list::-webkit-scrollbar-thumb:hover,
 .employees-list::-webkit-scrollbar-thumb:hover {
   background: #999;
-} 
+}

@@ -17,7 +17,6 @@ const ChangePasswordModal = ({ visible, onClose }) => {
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     control,
@@ -132,22 +131,11 @@ const ChangePasswordModal = ({ visible, onClose }) => {
               control={control}
               render={({ field: { onChange, value } }) => (
                 <Input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={"password"}
                   placeholder="Confirmar contraseña"
                   className="input-field"
                   value={value}
                   onChange={onChange}
-                  suffix={
-                    showConfirmPassword ? (
-                      <EyeOutlined
-                        onClick={() => setShowConfirmPassword(false)}
-                      />
-                    ) : (
-                      <EyeInvisibleOutlined
-                        onClick={() => setShowConfirmPassword(true)}
-                      />
-                    )
-                  }
                 />
               )}
               name="confirmPassword"
