@@ -1,12 +1,13 @@
 .cardNews {
-    background: linear-gradient(135deg, #5ba5f5, #3893e5);
+    background: linear-gradient(135deg, #5ba5f5, #082a47);
     color: white;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
     position: relative;
+    font-family: "Poppins";
     margin:2vh;
+    filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.06)) drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.04)) drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.04));
   }
   
   .cardHeader {
@@ -15,7 +16,7 @@
     align-items: baseline;
   }
   
-  .cardHeader h2 {
+  .cardHeader h3 {
     font-size: 18px;
     margin: 0;
   }

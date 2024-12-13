@@ -1,0 +1,42 @@
+.header-container {
+  display: flex;
+  justify-content: space-around;
+  width: 95%;
+}
+
+@media (max-width: 767px) {
+  .header-container {
+    width: 90%;
+    margin-left: 2vh;
+  }
+}
+
+.header {
+  display: flex;
+  width: 95%;
+  margin-left: 2vh;
+}
+
+@media (max-width: 767px) {
+  .header {
+    width: 90%;
+  }
+}
+
+.header label {
+  margin-top: 3vh;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  .header label {
+    margin-top: 3vh;
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.link {
+    text-decoration: none;
+}
