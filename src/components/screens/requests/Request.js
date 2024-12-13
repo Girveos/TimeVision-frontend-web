@@ -15,7 +15,8 @@ const Request = () => {
     isLoading, 
     error, 
     fetchRequests, 
-    updateRequestState 
+    updateRequestState,
+    getPendingRequests
   } = useRequestStore();
 
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -29,18 +30,11 @@ const Request = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchAndSortRequests = async () => {
-      await fetchRequests();
-      const sortedRequests = [...requests].sort(
-        (a, b) => new Date(b.start_date) - new Date(a.start_date)
-      );
-    };
-    fetchAndSortRequests();
+    fetchRequests();
   }, [fetchRequests]);
 
-  const pendientes = requests.filter(
-    (solicitud) => solicitud.state.toLowerCase() === "pendiente"
-  );
+
+  const pendientes = getPendingRequests();
 
   const filteredSolicitudes = requests.filter((solicitud) => {
     const empleado = solicitud.user_name?.toLowerCase() || "";

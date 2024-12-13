@@ -6,6 +6,7 @@ const useRequestStore = create((set, get) => ({
   requests: [],
   isLoading: false,
   error: null,
+  isInitialized: false,
 
   getPendingRequests: () => {
     return get().requests
@@ -14,6 +15,9 @@ const useRequestStore = create((set, get) => ({
   },
 
   fetchRequests: async () => {
+    if (get().isInitialized && get().requests.length > 0) {
+      return;
+    }
     set({ isLoading: true, error: null });
     
     try {
@@ -24,11 +28,12 @@ const useRequestStore = create((set, get) => ({
           (a, b) => new Date(b.start_date) - new Date(a.start_date)
         );
         
-        set({ requests: sortedRequests, isLoading: false });
+        set({ requests: sortedRequests, isLoading: false, isInitialized: true });
       } else {
         set({ 
           error: 'No se pudieron cargar las solicitudes', 
-          isLoading: false 
+          isLoading: false,
+          isInitialized: true
         });
       }
     } catch (err) {
@@ -59,12 +64,16 @@ const useRequestStore = create((set, get) => ({
 }));
 
 
-const useEmployeeStore = create((set) => ({
+const useEmployeeStore = create((set, get) => ({
   employees: [],
   isLoading: false,
   error: null,
+  isInitialized: false,
 
   fetchEmployees: async () => {
+    if (get().isInitialized && get().employees.length > 0) {
+      return;
+    }
     set({ isLoading: true, error: null });
     
     try {
@@ -73,7 +82,8 @@ const useEmployeeStore = create((set) => ({
       if (response.success) {
         set({ 
           employees: response.data, 
-          isLoading: false 
+          isLoading: false,
+          isInitialized: true
         });
       } else {
         set({ 

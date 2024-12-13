@@ -15,14 +15,19 @@ import {
 } from "../../../config/routes";
 import Header from "../../organisms/header/Header";
 import { Spin } from "antd";
+import { useRequestStore } from "../../../config/store";
 
 const Home = () => {
   const [user, setUser] = useState(null);
-  const [solicitudes, setSolicitudes] = useState([]);
   const [statistics, setStatistics] = useState(null);
   const [news, setNews] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const notificationsRef = useRef(null);
+
+  const {
+    isLoading,
+    fetchRequests,
+    getPendingRequests
+  } = useRequestStore();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -45,24 +50,6 @@ const Home = () => {
       }
     };
 
-    const fetchRequest = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getRequest();
-        if (response.success) {
-          const sortedRequests = response.data
-            .filter((request) => request.state.toLowerCase() === "pendiente")
-            .sort((a, b) => new Date(a.create_date) - new Date(b.create_date));
-          console.log(sortedRequests);
-          setSolicitudes(sortedRequests);
-        }
-      } catch (err) {
-        console.error("Error al obtener las solicitudes:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     const fetchStatistics = async () => {
       try {
         const response = await getHomeStatistics();
@@ -72,9 +59,7 @@ const Home = () => {
         }
       } catch (err) {
         console.error("Error al obtener las estadisticas:", err);
-      } finally {
-        setIsLoading(false);
-      }
+      } 
     };
 
     const fetchNews = async () => {
@@ -86,16 +71,15 @@ const Home = () => {
         }
       } catch (err) {
         console.error("Error al obtener las novedades:", err);
-      } finally {
-        setIsLoading(false);
-      }
+      } 
     };
-
-    fetchUserData();
-    fetchNews();
-    fetchRequest();
     fetchStatistics();
-  }, []);
+    fetchNews();
+    fetchUserData();
+    fetchRequests();
+  }, [fetchRequests]);
+
+  const solicitudes = getPendingRequests();
 
   const scrollLeft = () => {
     if (notificationsRef.current) {
