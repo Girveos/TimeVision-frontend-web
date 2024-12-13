@@ -17,7 +17,6 @@ const Employees = () => {
   } = useEmployeeStore();
   
   const [searchTerm, setSearchTerm] = useState("");
-  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedEmpleado, setSelectedEmpleado] = useState(null);
 
@@ -57,10 +56,6 @@ const Employees = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedEmpleado(null);
-  };
-
-  const handleCloseCreateModal = () => {
-    setOpenCreateModal(false);
   };
 
   const user = JSON.parse(localStorage.getItem("user"));

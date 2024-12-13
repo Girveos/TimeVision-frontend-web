@@ -47,7 +47,6 @@ export const getUser = async () => {
       
       data.department_name = department.data.name;
 
-      console.log(data)
       return { success: true, data: data };
     }
   } catch (error) {
@@ -61,7 +60,6 @@ export const getUserDepartment = async (id) => {
     if (!token) {
       throw new Error("No se encontró el token. Inicia sesión nuevamente.");
     }
-    console.log("Aqui", id);
     const response = await api.get(`/department/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -216,7 +214,6 @@ export const getUsers = async () => {
         })
       );
 
-      console.log(usersWithDepartments);
       return { success: true, data: usersWithDepartments };
     }
   } catch (error) {
@@ -323,7 +320,6 @@ export const getShifts = async () => {
       },
     });
 
-    console.log(response.data);
     if (response.status === 200) {
       return { success: true, data: response.data.data };
     }
@@ -374,7 +370,6 @@ export const getHomeStatistics = async () => {
 
     if (response.status === 200) {
       const data = response.data;
-      console.log(data)
       return { success: true, data: data };
     }
   } catch (error) {
@@ -418,31 +413,27 @@ export const getNews = async () => {
   }
 };
 
-export const shiftsAssigments = async (data) => {
+export const shiftsAssigments = async (startDate, endDate, employeeIds) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
       throw new Error("No se encontró el token. Inicia sesión nuevamente.");
     }
 
-    const form = new FormData();
-    form.append("startDate", data.startDate);
-    form.append("endDate", data.end);
-    form.append("restriction1", data.restriction1);
-    form.append("restriction2", data.restriction2);
-    form.append("restriction3", data.restriction3);
-    form.append("employeeIds", data.employeeIds);
+    const payload = {
+      startDate: startDate,
+      endDate: endDate,
+      employeeIds: employeeIds,
+    };
 
-    const response = await api.post("/assigment/automaticassignment", form, {
+    const response = await api.post("/assignment/automaticassignment", payload, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     const data = response.data;
 
-    if (response.status === 201) {
-      return { success: true, message: data };
-    }
+    return { success: true, data: data };
   } catch (error) {
     return { success: false, message: error.message };
   }

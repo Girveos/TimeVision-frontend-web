@@ -87,10 +87,6 @@ const CalendarScreen = () => {
         
         setEmployees(newEmployees);
         
-        // Aquí podrías agregar la lógica para actualizar en el backend
-        // Por ejemplo:
-        // await updateAssignment(draggedEmployee.id, newShiftId);
-        
       } catch (error) {
         console.error("Error al actualizar asignación:", error);
       }
