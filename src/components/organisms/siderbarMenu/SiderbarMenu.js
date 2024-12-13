@@ -56,6 +56,7 @@ export const SiderbarMenu = () => {
           <li>
             <NavLink
               to="/employees"
+              name="userCreateButtom"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
               <TeamOutlined /> Empleados

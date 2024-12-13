@@ -11,7 +11,7 @@ const Header = ({ title, user }) => {
       </div>
       <div>
       {user && (
-          <Link to="/profile" className="link">  
+          <Link to="/profile" className="link" name="buttonProfile">  
             <UserProfile
               name={user.name}
               lastname={user.lastname}
